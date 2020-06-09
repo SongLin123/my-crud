@@ -4,6 +4,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   entry: process.env.NODE_ENV === 'production' ? './src/index.js' :'./test.js',
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -94,6 +95,8 @@ module.exports = {
     extensions: ['*', '.js', '.vue', '.json']
   },
   devServer: {
+    contentBase: "./dist",
+    port:9000,
     historyApiFallback: true,
     noInfo: true,
     overlay: true,

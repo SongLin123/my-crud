@@ -1,19 +1,19 @@
 {
-  "name": "crud",
-  "description": "A d2-projects project",
-  "version": "2.0.5",
-  "author": "",
+  "name": "my-element-crud",
+  "description": "d2-crud edit",
+  "version": "0.0.1",
+  "author": "songlin",
+  "email": "linsong570@gmail.com",
   "license": "MIT",
   "private": false,
   "main": "dist/d2-crud.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/d2-projects/d2-crud"
+    "url": "git+https://github.com/SongLin123/my-crud.git"
   },
   "keywords": [
     "d2-crud",
-    "table",
-    "d2-projects",
+    "my-crud",
     "vue",
     "element"
   ],

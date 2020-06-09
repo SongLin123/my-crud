@@ -1,3 +1,9 @@
+<!--
+ * @Date: 2020-06-09 12:33:27
+ * @LastEditors: songlin
+ * @LastEditTime: 2020-06-09 18:52:44
+ * @FilePath: \d2-crud\README.md
+-->
 ![](https://raw.githubusercontent.com/d2-projects/d2-crud/master/doc/image/banner.png)
 
 ![npm](https://img.shields.io/npm/v/@d2-projects/d2-crud.svg)
@@ -7,12 +13,12 @@
 
 ## 介绍
 
-[D2-Crud](https://github.com/d2-projects/d2-crud)是一套基于[Vue.js 2.2.0+](https://cn.vuejs.org/)和[Element UI 2.0.0+](http://element-cn.eleme.io/#/zh-CN)的表格组件。`D2-Crud` 将 `Element` 的功能进行了封装，并增加了表格的增删改查、数据校验、表格内编辑等常用的功能。大部分功能可由配置 `json` 实现，在实现并扩展了 `Element` 表格组件功能的同时，降低了开发难度，减少了代码量，大大简化了开发流程。
+基于[D2-Crud](https://github.com/d2-projects/d2-crud)修改的vue组件，添加部分功能。
 
 
 ## 文档和示例
 
-文档：<https://d2.pub/zh/doc/d2-crud-v2>   
+文档：<https://d2.pub/zh/doc/d2-crud-v2>
 示例：<https://d2.pub/d2-admin/preview/#/demo/d2-crud/index>
 
 ## 功能
@@ -57,10 +63,8 @@ new Vue({
 })
 ```
 
-之后就可以在项目中使用 `D2-Crud` 了。
 
-## CDN
+## 新增
 
-externals: D2Crud
-
-https://cdn.d2.pub/packages/@d2-projects/d2-crud@2.0.5/d2-crud.js
+### rowHandle
+  edit\remove\custom 新增sort字段(Number)，为按钮排序权重
