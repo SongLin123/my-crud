@@ -3,7 +3,7 @@ export default {
     /**
      * @description 组件属性默认值
      */
-    handleAttribute (attribute, defaultValue) {
+    handleAttribute(attribute, defaultValue) {
       if (attribute === false || attribute === 0 || attribute === '') {
         return attribute
       }
@@ -12,17 +12,19 @@ export default {
     /**
      * @description 根据dialog模式渲染不同表单
      */
-    handleFormTemplateMode (key) {
+    handleFormTemplateMode(key) {
       if (this.formMode === 'edit') {
         return this.editTemplateStorage[key]
       } else if (this.formMode === 'add') {
         return this.addTemplateStorage[key]
+      } else if (this.formMode === 'look') {
+        return this.lookTemplateStorage[key]
       }
     },
     /**
      * @description 根据dialog模式渲染不同表单校验规则
      */
-    handleFormRulesMode () {
+    handleFormRulesMode() {
       if (this.formMode === 'edit') {
         return this.editRules
       } else if (this.formMode === 'add') {
