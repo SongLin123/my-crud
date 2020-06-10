@@ -67,7 +67,10 @@ https://cdn.d2.pub/packages/@d2-projects/d2-crud@2.0.5/d2-crud.js
 
 
 ## 补丁修改
+- 解决自带选择框 form-data-change 事件无法正确传递到父组件的问题
 - 增加自定义查看按钮
+- 增加查看功能，查看时元素默认disabled
+- 自定义组件disabled 需要在props中增加  disabled: Boolean   组件属性写： :disabled="disabled"
 
 - 使用：
 ``` js
@@ -80,21 +83,114 @@ rowHandle: {
 }
 ```
 
-- 增加查看功能，查看时元素默认disabled
-- 自定义组件disabled 需要在props中增加  disabled: Boolean   组件属性写： :disabled="disabled"
+
 
 - 增加自定义按钮排序功能
 
 - 使用：
 ``` js
-<d2-crud v-bind:look-template="addTemplate"></d2-crud>
 rowHandle: {
-  look: {
+          minWidth: "180px",
+          look: {
+            text: "查看",
+            emit: "lookHandle",
+            sort: 3
+          },
+          customs: [{
+              text: '打卡记录',
+              emit: 'showRecord',
+              sort:2
+            }],
+          edit: {
+            text: "编辑",
+            emit: "editHandle",
+            type: "warning ",
+            sort: 1
+          },
+
+          }
+```
+
+
+- 增加纯文字查看
+- 使用：
+``` js
+rowHandle: {
+  lookNoEle: {
     text: "查看",
     emit: "lookHandle"
   },
 }
 ```
 
-- 增加查看功能，查看时元素默认disabled
-- 自定义组件disabled 需要在props中增加  disabled: Boolean   组件属性写： :disabled="disabled"
+
+- 自定义查看formatter
+- 使用：
+``` js
+ mycom: {
+    title: "选择框",
+    value: "",
+    component: {
+      name: testCom,
+      formatter(val) {
+        return val === 1 ? "测试1" : "测试2";
+      },
+      props: {
+        options: [
+          { label: "测试1", value: 1 },
+          { label: "测试2", value: 2 }
+        ]
+      }
+    }
+  },
+```
+
+- 自定义查看可自定义class
+- 使用：
+``` js
+ roleName: {
+    title: "角色名",
+    value: "",
+    class: "my_label",
+    component: {
+      placeholder: " 仅可输入英文大小写、数字"
+    }
+  },
+```
+
+- 添加表单中自定义组件事件
+-使用：
+> 组件A
+```
+<template>
+  <div>
+    <el-button @click="up">up123</el-button>
+  </div>
+</template>
+
+      up() {
+        this.$emit("customEmit", 123);
+      }
+
+```
+> 组件B
+``` js
+  methods:{
+    handle(data){
+      this.data=data
+    }
+  }
+```
+> 父组件
+``` html
+<d2-crud
+@event:com-coma="handle">
+</d2-crud>
+```
+``` js
+ handle(data) {
+    this.$refs.d2Crud.getRef("comb").handle(data);
+  },
+```
+
+

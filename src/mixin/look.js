@@ -35,6 +35,26 @@ export default {
             _forEach(this.formData, (value, key) => {
                 this.formData[key] = row.hasOwnProperty(key) ? row[key] : (this.formData[key] || '')
             })
+        },
+        handleLookNoEle(index, row, templage = null) {
+            this.formMode = 'lookNoEle'
+            this.lookDataStorage = _clonedeep(row)
+            this.isDialogShow = true
+            this.$emit('dialog-open', {
+                mode: 'lookNoEle',
+                row
+            })
+            this.lookIndex = index
+            if (templage) {
+                this.formData = _clonedeep(templage)
+                this.lookTemplateStorage = _clonedeep(templage)
+            } else {
+                this.formData = this.lookTemplate ? _clonedeep(this.lookTemplate) : {}
+                this.lookTemplateStorage = this.lookTemplate ? _clonedeep(this.lookTemplate) : {}
+            }
+            _forEach(this.formData, (value, key) => {
+                this.formData[key] = row.hasOwnProperty(key) ? row[key] : (this.formData[key] || '')
+            })
         }
     }
 }

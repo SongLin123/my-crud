@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-06-09 14:07:21
  * @LastEditors: songlin
- * @LastEditTime: 2020-06-10 17:48:20
+ * @LastEditTime: 2020-06-10 18:03:17
  * @FilePath: \d2-crud\app.vue
 -->
 <template>
@@ -15,6 +15,7 @@
       :add-template="addTemplate"
       :edit-template="addTemplate"
       :look-template="addTemplate"
+      @row-add="handleAdd"
       @row-edit="handleEdit"
       @dialog-cancel="handleDialogCancel"
       @event:com-coma="handle"
@@ -33,36 +34,36 @@
   import testCom from "./myComponent";
   import coma from "./coma";
   import comb from "./comb";
+
   export default {
     data() {
       return {
+        formOptions: {
+          // lookNoEleLabelWidth: 100
+        },
         rowHandle: {
           minWidth: "180px",
           look: {
             text: "查看",
+            emit: "lookHandle",
+            sort: 3
+          },
+          lookNoEle: {
+            text: "纯文字查看",
             emit: "lookHandle"
           },
           edit: {
             text: "编辑",
             emit: "editHandle",
-            type: "warning "
+            type: "warning ",
+            sort: 1
           },
           remove: {
             icon: "el-icon-remove",
             text: "删除",
             align: "right",
-            confirm: true,
-            sort:2
-
-          },
-          custom:[
-             {
-            text: '自定义按钮',
-            type: 'warning',
-            size: 'small',
-            sort:1
+            confirm: true
           }
-          ]
         },
 
         columns: [
@@ -89,14 +90,16 @@
             createdTime: "时间1",
             lastUpdatedTime: "修改时间1",
             remarks: "备注1",
-            mycom: 1
+            mycom: 1,
+            mycom2: 2
           },
           {
             roleName: "角色2",
             createdTime: "时间2",
             lastUpdatedTime: "修改时间2",
             remarks: "备注2",
-            mycom: 2
+            mycom: 2,
+            mycom2: 1
           }
         ],
         addTemplate: {
@@ -152,7 +155,7 @@
         done();
       },
       handle(data) {
-        this.$refs.d2Crud.getRef('comb').handle(data)
+        this.$refs.d2Crud.getRef("comb").handle(data);
       },
       addDevice() {
         this.$refs.d2Crud.showDialog({

@@ -17,7 +17,7 @@ export default {
         return this.editTemplateStorage[key]
       } else if (this.formMode === 'add') {
         return this.addTemplateStorage[key]
-      } else if (this.formMode === 'look') {
+      } else if (this.formMode === 'look' || this.formMode === 'lookNoEle') {
         return this.lookTemplateStorage[key]
       }
     },
@@ -30,6 +30,6 @@ export default {
       } else if (this.formMode === 'add') {
         return this.addRules
       }
-    }
+    },
   }
 }
