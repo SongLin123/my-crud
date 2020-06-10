@@ -519,6 +519,23 @@
                 @click="handleLook(scope.$index, scope.row)"
               >{{handleAttribute(rowHandle.look.text, '查看')}}</el-button>
             </template>
+            <!-- 纯文字查看 -->
+            <template>
+              <el-button
+                v-if="rowHandle.lookNoEle && rowHandle.lookNoEle.circle && handleRowHandleButtonShow(rowHandle.lookNoEle.show, scope.$index, scope.row)"
+                :type="handleAttribute(rowHandle.lookNoEle.type, '')"
+                :disabled="handleRowHandleButtonDisabled(rowHandle.lookNoEle.disabled, scope.$index, scope.row)"
+                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, rowHandle.lookNoEle) : rowHandle.lookNoEle"
+                @click="handleLook(scope.$index, scope.row)"
+              ></el-button>
+              <el-button
+                v-if="rowHandle.lookNoEle && !rowHandle.lookNoEle.circle && handleRowHandleButtonShow(rowHandle.lookNoEle.show, scope.$index, scope.row)"
+                :type="handleAttribute(rowHandle.lookNoEle.type, '')"
+                :disabled="handleRowHandleButtonDisabled(rowHandle.lookNoEle.disabled, scope.$index, scope.row)"
+                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, rowHandle.lookNoEle) : rowHandle.lookNoEle"
+                @click="handleLookNoEle(scope.$index, scope.row)"
+              >{{handleAttribute(rowHandle.lookNoEle.text, '查看')}}</el-button>
+            </template>
             <template v-for="(item, index) in handleAttribute(rowHandle.custom, [])">
               <template>
                 <el-button
@@ -550,13 +567,13 @@
     </div>
     <el-dialog
       v-if="isDialogShow"
-      :title="(formMode === 'edit' && editTitle)||(formMode === 'add' && addTitle)||(formMode === 'look' && lookTitle)"
+      :title="(formMode === 'edit' && editTitle)||(formMode === 'add' && addTitle)||((formMode === 'look' || formMode === 'lookNoEle') && lookTitle)"
       :visible.sync="isDialogShow"
       :before-close="handleDialogCancel"
       v-bind="formOptions"
     >
       <el-form ref="form" :model="formData" :rules="handleFormRulesMode()" v-bind="formOptions">
-        <el-row v-bind="formOptions">
+        <el-row v-bind="formOptions" v-if="formMode !== 'lookNoEle'">
           <template v-for="(value, key, index) in formData">
             <el-col
               v-if="handleFormTemplateMode(key).component ? handleAttribute(handleFormTemplateMode(key).component.show, true) : true"
@@ -623,12 +640,13 @@
                     >{{option.label}}</el-checkbox>
                   </template>
                 </el-checkbox-group>
+                <!-- 解决选择框 form-data-change 事件无法正确传递到父组件的问题-->
                 <el-select
                   v-else-if="handleFormTemplateMode(key).component.name === 'el-select'"
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
                   :disabled="formMode === 'look'"
-                  @change="$emit('form-data-change', {key: key, value: value})"
+                  @change="((val)=>{$emit('form-data-change', {key: key, value: val})})"
                 >
                   <el-option
                     v-for="option in handleFormTemplateMode(key).component.options"
@@ -707,7 +725,37 @@
             </el-col>
           </template>
         </el-row>
-        <el-row v-bind="formOptions"></el-row>
+        <!-- 纯文字查看 -->
+        <el-row v-bind="formOptions" v-if="formMode === 'lookNoEle'">
+          <template v-for="(value, key, index) in formData">
+            <el-col
+              v-if="handleFormTemplateMode(key).component ? handleAttribute(handleFormTemplateMode(key).component.show, true) : true"
+              :span="handleFormTemplateMode(key).component ? handleAttribute(handleFormTemplateMode(key).component.span, 24) : 24"
+              :offset="handleFormTemplateMode(key).component ? handleAttribute(handleFormTemplateMode(key).component.offset, 0) : 0"
+              :key="index"
+            >
+              <div :prop="key" class="look_n_content">
+                <span
+                  :class="['look_n_label',handleFormTemplateMode(key).class]"
+                  v-text="handleFormTemplateMode(key).title"
+                  :style="{display:'inline-block',width:formOptions.lookNoEleLabelWidth +'px'}"
+                ></span>
+                <span
+                  v-if="handleFormTemplateMode(key).component"
+                  v-text="handleFormTemplateMode(key).component.formatter ? handleFormTemplateMode(key).component.formatter(formData[key]): formData[key]"
+                  :class="['look_n_val',handleFormTemplateMode(key).class]"
+                  :style="{display:'inline-block',width:formOptions.lookNoEleValWidth +'px'}"
+                ></span>
+                <span
+                  v-else-if="!handleFormTemplateMode(key).component"
+                  v-text="formData[key]"
+                  :class="['look_n_val',handleFormTemplateMode(key).class]"
+                  :style="{display:'inline-block',width:formOptions.lookNoEleValWidth +'px'}"
+                ></span>
+              </div>
+            </el-col>
+          </template>
+        </el-row>
       </el-form>
       <div slot="footer">
         <el-button
@@ -772,6 +820,11 @@ export default {
   }
   .d2-crud-pagination {
     padding: 15px 0;
+  }
+  .look_n_content {
+    text-align: center;
+    font-size: 16px;
+    line-height: 35px;
   }
 }
 </style>

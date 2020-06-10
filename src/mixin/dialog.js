@@ -174,5 +174,15 @@ export default {
     handleCloseDialog() {
       this.isDialogShow = false
     }
-  }
+  },
+  // watch: {
+  //   addTemplate: {
+  //     handler(newV, oldV) {
+  //       this.addTemplateStorage = _clonedeep(newV)
+  //       _forEach(this.formData, (value, key) => {
+  //         this.formData[key] = this.addTemplateStorage[key].value
+  //       })
+  //     }
+  //   }
+  // },
 }

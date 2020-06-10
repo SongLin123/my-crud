@@ -6,7 +6,7 @@ export default {
     /**
      * @description 新增行数据
      */
-    handleAdd (templage = null) {
+    handleAdd(templage = null) {
       this.formMode = 'add'
       this.$emit('dialog-open', {
         mode: 'add'
@@ -22,6 +22,7 @@ export default {
       _forEach(this.formData, (value, key) => {
         this.formData[key] = this.addTemplateStorage[key].value
       })
-    }
+    },
+
   }
 }

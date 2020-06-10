@@ -67,6 +67,7 @@ https://cdn.d2.pub/packages/@d2-projects/d2-crud@2.0.5/d2-crud.js
 
 
 ## 补丁修改
+- 解决自带选择框 form-data-change 事件无法正确传递到父组件的问题
 - 增加自定义查看按钮
 
 - 使用：
@@ -82,4 +83,53 @@ rowHandle: {
 
 - 增加查看功能，查看时元素默认disabled
 - 自定义组件disabled 需要在props中增加  disabled: Boolean   组件属性写： :disabled="disabled"
+
+
+
+- 增加纯文字查看
+- 使用：
+``` js
+rowHandle: {
+  lookNoEle: {
+    text: "查看",
+    emit: "lookHandle"
+  },
+}
+```
+
+
+- 自定义查看formatter
+- 使用：
+``` js
+ mycom: {
+    title: "选择框",
+    value: "",
+    component: {
+      name: testCom,
+      formatter(val) {
+        return val === 1 ? "测试1" : "测试2";
+      },
+      props: {
+        options: [
+          { label: "测试1", value: 1 },
+          { label: "测试2", value: 2 }
+        ]
+      }
+    }
+  },
+```
+
+- 自定义查看可自定义class
+- 使用：
+``` js
+ roleName: {
+    title: "角色名",
+    value: "",
+    class: "my_label",
+    component: {
+      placeholder: " 仅可输入英文大小写、数字"
+    }
+  },
+```
+
 
