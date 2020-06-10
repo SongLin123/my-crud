@@ -473,6 +473,7 @@
           <template slot-scope="scope">
             <template>
               <el-button
+                class="btn"
                 :style="{'order':rowHandle.edit.sort}"
                 v-if="rowHandle.edit && rowHandle.edit.circle && handleRowHandleButtonShow(rowHandle.edit.show, scope.$index, scope.row)"
                 :disabled="handleRowHandleButtonDisabled(rowHandle.edit.disabled, scope.$index, scope.row)"
@@ -480,6 +481,7 @@
                 @click="handleEdit(scope.$index, scope.row)"
               ></el-button>
               <el-button
+              class="btn"
                 :style="{'order':rowHandle.edit.sort}"
                 v-if="rowHandle.edit && !rowHandle.edit.circle && handleRowHandleButtonShow(rowHandle.edit.show, scope.$index, scope.row)"
                 :disabled="handleRowHandleButtonDisabled(rowHandle.edit.disabled, scope.$index, scope.row)"
@@ -489,6 +491,7 @@
             </template>
             <template>
               <el-button
+              class="btn"
                 :style="{'order':rowHandle.remove.sort}"
                 v-if="rowHandle.remove && rowHandle.remove.circle && handleRowHandleButtonShow(rowHandle.remove.show, scope.$index, scope.row)"
                 :type="handleAttribute(rowHandle.remove.type, 'danger')"
@@ -497,6 +500,7 @@
                 @click="handleRemove(scope.$index, scope.row)"
               ></el-button>
               <el-button
+              class="btn"
                 :style="{'order':rowHandle.remove.sort}"
                 v-if="rowHandle.remove && !rowHandle.remove.circle && handleRowHandleButtonShow(rowHandle.remove.show, scope.$index, scope.row)"
                 :type="handleAttribute(rowHandle.remove.type, 'danger')"
@@ -507,6 +511,7 @@
             </template>
             <template>
               <el-button
+              class="btn"
                 :style="{'order':rowHandle.look.sort}"
                 v-if="rowHandle.look && rowHandle.look.circle && handleRowHandleButtonShow(rowHandle.look.show, scope.$index, scope.row)"
                 :type="handleAttribute(rowHandle.look.type, '')"
@@ -515,6 +520,7 @@
                 @click="handleLook(scope.$index, scope.row)"
               ></el-button>
               <el-button
+              class="btn"
                 :style="{'order':rowHandle.look.sort}"
                 v-if="rowHandle.look && !rowHandle.look.circle && handleRowHandleButtonShow(rowHandle.look.show, scope.$index, scope.row)"
                 :type="handleAttribute(rowHandle.look.type, '')"
@@ -526,6 +532,7 @@
             <!-- 纯文字查看 -->
             <template>
               <el-button
+              class="btn"
                 v-if="rowHandle.lookNoEle && rowHandle.lookNoEle.circle && handleRowHandleButtonShow(rowHandle.lookNoEle.show, scope.$index, scope.row)"
                 :type="handleAttribute(rowHandle.lookNoEle.type, '')"
                 :disabled="handleRowHandleButtonDisabled(rowHandle.lookNoEle.disabled, scope.$index, scope.row)"
@@ -533,6 +540,7 @@
                 @click="handleLook(scope.$index, scope.row)"
               ></el-button>
               <el-button
+              class="btn"
                 v-if="rowHandle.lookNoEle && !rowHandle.lookNoEle.circle && handleRowHandleButtonShow(rowHandle.lookNoEle.show, scope.$index, scope.row)"
                 :type="handleAttribute(rowHandle.lookNoEle.type, '')"
                 :disabled="handleRowHandleButtonDisabled(rowHandle.lookNoEle.disabled, scope.$index, scope.row)"
@@ -543,6 +551,7 @@
             <template v-for="item in handleAttribute(rowHandle.custom, [])">
               <template>
                 <el-button
+                class="btn"
                   :key="item.text"
                   :style="{'order':item.sort}"
                   v-if="item.circle && handleRowHandleButtonShow(item.show, scope.$index, scope.row)"
@@ -551,6 +560,7 @@
                   @click="$emit(item.emit, {index: scope.$index, row: scope.row})"
                 ></el-button>
                 <el-button
+                class="btn"
                   :key="item.text"
                   :style="{'order':item.sort}"
                   v-if="!item.circle && handleRowHandleButtonShow(item.show, scope.$index, scope.row)"
@@ -597,7 +607,7 @@
                 :prop="key"
               >
                 <el-input
-                  :ref="'com-'+key"
+                  :ref="prefix(key)"
                   v-if="(!handleFormTemplateMode(key).component) ||((!handleFormTemplateMode(key).component.name) && (!handleFormTemplateMode(key).component.render)) || handleFormTemplateMode(key).component.name === 'el-input'"
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
@@ -605,7 +615,7 @@
                   @change="$emit('form-data-change', {key: key, value: value})"
                 ></el-input>
                 <el-input-number
-                  :ref="'com-'+key"
+                  :ref="prefix(key)"
                   v-else-if="handleFormTemplateMode(key).component.name === 'el-input-number'"
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
@@ -613,7 +623,7 @@
                   @change="$emit('form-data-change', {key: key, value: value})"
                 ></el-input-number>
                 <el-radio-group
-                  :ref="'com-'+key"
+                  :ref="prefix(key)"
                   v-else-if="handleFormTemplateMode(key).component.name === 'el-radio'"
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
@@ -636,7 +646,7 @@
                   </template>
                 </el-radio-group>
                 <el-checkbox-group
-                  :ref="'com-'+key"
+                  :ref="prefix(key)"
                   v-else-if="handleFormTemplateMode(key).component.name === 'el-checkbox'"
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
@@ -660,7 +670,7 @@
                 </el-checkbox-group>
                 <!-- 解决选择框 form-data-change 事件无法正确传递到父组件的问题-->
                 <el-select
-                  :ref="'com-'+key"
+                  :ref="prefix(key)"
                   v-else-if="handleFormTemplateMode(key).component.name === 'el-select'"
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
@@ -674,7 +684,7 @@
                   ></el-option>
                 </el-select>
                 <el-cascader
-                  :ref="'com-'+key"
+                  :ref="prefix(key)"
                   v-else-if="handleFormTemplateMode(key).component.name === 'el-cascader'"
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
@@ -682,7 +692,7 @@
                   @change="$emit('form-data-change', {key: key, value: value})"
                 ></el-cascader>
                 <el-switch
-                  :ref="'com-'+key"
+                  :ref="prefix(key)"
                   v-else-if="handleFormTemplateMode(key).component.name === 'el-switch'"
                   v-model="formData[key]"
                   v-bind="handleFormTemplateMode(key).component"
@@ -690,7 +700,7 @@
                   @change="$emit('form-data-change', {key: key, value: value})"
                 ></el-switch>
                 <el-slider
-                  :ref="'com-'+key"
+                  :ref="prefix(key)"
                   v-else-if="handleFormTemplateMode(key).component.name === 'el-slider'"
                   v-model="formData[key]"
                   v-bind="handleFormTemplateMode(key).component"
@@ -698,7 +708,7 @@
                   @change="$emit('form-data-change', {key: key, value: value})"
                 ></el-slider>
                 <el-time-select
-                  :ref="'com-'+key"
+                  :ref="prefix(key)"
                   v-else-if="handleFormTemplateMode(key).component.name === 'el-time-select'"
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
@@ -706,7 +716,7 @@
                   @change="$emit('form-data-change', {key: key, value: value})"
                 ></el-time-select>
                 <el-time-picker
-                  :ref="'com-'+key"
+                  :ref="prefix(key)"
                   v-else-if="handleFormTemplateMode(key).component.name === 'el-time-picker'"
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
@@ -714,7 +724,7 @@
                   @change="$emit('form-data-change', {key: key, value: value})"
                 ></el-time-picker>
                 <el-date-picker
-                  :ref="'com-'+key"
+                  :ref="prefix(key)"
                   v-else-if="handleFormTemplateMode(key).component.name === 'el-date-picker'"
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
@@ -722,7 +732,7 @@
                   @change="$emit('form-data-change', {key: key, value: value})"
                 ></el-date-picker>
                 <el-rate
-                  :ref="'com-'+key"
+                  :ref="prefix(key)"
                   v-else-if="handleFormTemplateMode(key).component.name === 'el-rate'"
                   v-model="formData[key]"
                   v-bind="handleFormTemplateMode(key).component"
@@ -730,7 +740,7 @@
                   @change="$emit('form-data-change', {key: key, value: value})"
                 ></el-rate>
                 <el-color-picker
-                  :ref="'com-'+key"
+                  :ref="prefix(key)"
                   v-else-if="handleFormTemplateMode(key).component.name === 'el-color-picker'"
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
@@ -742,13 +752,13 @@
                   v-model="formData[key]"
                   :component-name="handleFormTemplateMode(key).component.name"
                   :props="(handleFormTemplateMode(key).component.props && formMode === 'look') ? Object.assign({disabled:true},handleFormTemplateMode(key).component.props)  : ((handleFormTemplateMode(key).component.props && formMode !== 'look') ? handleFormTemplateMode(key).component.props:null)"
-                  :ref="'com-'+key"
+                  :ref="prefix(key)"
                   @handlecustom="handle(key,$event)"
                 ></render-custom-component>
                 <render-component
                   v-else-if="handleFormTemplateMode(key).component.render"
                   :render-function="handleFormTemplateMode(key).component.render"
-                  :ref="'com-'+key"
+                  :ref="prefix(key)"
                   :scope="formData[key]"
                 ></render-component>
               </el-form-item>
@@ -838,6 +848,11 @@
       renderComponent,
       renderCustomComponent
       // d2Column
+    },
+    methods:{
+      prefix(name){
+        return 'com-'+name
+      }
     }
   };
 </script>
