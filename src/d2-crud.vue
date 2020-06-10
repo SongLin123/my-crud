@@ -547,12 +547,11 @@
 </style>
 <style lang="scss">
 
-  .rowHandle {
-    .cell {
+  .rowHandle > .cell {
       display: flex;
       .btn {
         margin-left: 10px;
       }
     }
-  }
+
 </style>
