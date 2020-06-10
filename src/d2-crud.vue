@@ -766,6 +766,7 @@ export default {
   .d2-crud-header {
     border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
   }
+
   .d2-crud-body {
     padding: 15px 0;
     overflow: hidden;
@@ -774,4 +775,15 @@ export default {
     padding: 15px 0;
   }
 }
+</style>
+<style lang="scss">
+
+  .rowHandle > .cell {
+      display: flex;
+      .btn {
+        margin-left: 10px;
+      }
+    }
+
+
 </style>
