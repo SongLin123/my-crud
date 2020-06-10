@@ -12,7 +12,7 @@
 
 ## 文档和示例
 
-文档：<https://d2.pub/zh/doc/d2-crud-v2>   
+文档：<https://d2.pub/zh/doc/d2-crud-v2>
 示例：<https://d2.pub/d2-admin/preview/#/demo/d2-crud/index>
 
 ## 功能
@@ -83,3 +83,18 @@ rowHandle: {
 - 增加查看功能，查看时元素默认disabled
 - 自定义组件disabled 需要在props中增加  disabled: Boolean   组件属性写： :disabled="disabled"
 
+- 增加自定义按钮排序功能
+
+- 使用：
+``` js
+<d2-crud v-bind:look-template="addTemplate"></d2-crud>
+rowHandle: {
+  look: {
+    text: "查看",
+    emit: "lookHandle"
+  },
+}
+```
+
+- 增加查看功能，查看时元素默认disabled
+- 自定义组件disabled 需要在props中增加  disabled: Boolean   组件属性写： :disabled="disabled"

@@ -6,7 +6,10 @@
     :element-loading-spinner="loadingOptions ? handleAttribute(loadingOptions.spinner, null) : null"
     :element-loading-background="loadingOptions ? handleAttribute(loadingOptions.background, null) : null"
   >
-    <div class="d2-crud-header" v-if="$slots.header">
+    <div
+      class="d2-crud-header"
+      v-if="$slots.header"
+    >
       <slot name="header"></slot>
     </div>
     <div class="d2-crud-body">
@@ -176,9 +179,7 @@
               :render-function="item.component.render"
               :scope="scope"
             ></render-component>
-            <template
-              v-else
-            >{{item.formatter ? item.formatter(scope.row, scope.column, _get(scope.row, item.key), scope.$index) : _get(scope.row, item.key)}}</template>
+            <template v-else>{{item.formatter ? item.formatter(scope.row, scope.column, _get(scope.row, item.key), scope.$index) : _get(scope.row, item.key)}}</template>
           </template>
           <template v-if="item.children">
             <el-table-column
@@ -315,9 +316,7 @@
                   :render-function="item2.component.render"
                   :scope="scope"
                 ></render-component>
-                <template
-                  v-else
-                >{{item2.formatter ? item2.formatter(scope.row, scope.column, _get(scope.row, item2.key), scope.$index) : _get(scope.row, item2.key)}}</template>
+                <template v-else>{{item2.formatter ? item2.formatter(scope.row, scope.column, _get(scope.row, item2.key), scope.$index) : _get(scope.row, item2.key)}}</template>
               </template>
               <template v-if="item2.children">
                 <el-table-column
@@ -454,9 +453,7 @@
                       :render-function="item3.component.render"
                       :scope="scope"
                     ></render-component>
-                    <template
-                      v-else
-                    >{{item3.formatter ? item3.formatter(scope.row, scope.column, _get(scope.row, item3.key), scope.$index) : _get(scope.row, item3.key)}}</template>
+                    <template v-else>{{item3.formatter ? item3.formatter(scope.row, scope.column, _get(scope.row, item3.key), scope.$index) : _get(scope.row, item3.key)}}</template>
                   </template>
                   <!-- <d2-column v-if="item.children" :columns="item.children"></d2-column> -->
                 </el-table-column>
@@ -471,16 +468,19 @@
           v-if="rowHandle"
           :label="handleAttribute(rowHandle.columnHeader, '操作')"
           v-bind="rowHandle"
+          className="rowHandle"
         >
           <template slot-scope="scope">
             <template>
               <el-button
+                :style="{'order':rowHandle.edit.sort}"
                 v-if="rowHandle.edit && rowHandle.edit.circle && handleRowHandleButtonShow(rowHandle.edit.show, scope.$index, scope.row)"
                 :disabled="handleRowHandleButtonDisabled(rowHandle.edit.disabled, scope.$index, scope.row)"
                 v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, rowHandle.edit) : rowHandle.edit"
                 @click="handleEdit(scope.$index, scope.row)"
               ></el-button>
               <el-button
+                :style="{'order':rowHandle.edit.sort}"
                 v-if="rowHandle.edit && !rowHandle.edit.circle && handleRowHandleButtonShow(rowHandle.edit.show, scope.$index, scope.row)"
                 :disabled="handleRowHandleButtonDisabled(rowHandle.edit.disabled, scope.$index, scope.row)"
                 v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, rowHandle.edit) : rowHandle.edit"
@@ -489,6 +489,7 @@
             </template>
             <template>
               <el-button
+                :style="{'order':rowHandle.remove.sort}"
                 v-if="rowHandle.remove && rowHandle.remove.circle && handleRowHandleButtonShow(rowHandle.remove.show, scope.$index, scope.row)"
                 :type="handleAttribute(rowHandle.remove.type, 'danger')"
                 :disabled="handleRowHandleButtonDisabled(rowHandle.remove.disabled, scope.$index, scope.row)"
@@ -496,6 +497,7 @@
                 @click="handleRemove(scope.$index, scope.row)"
               ></el-button>
               <el-button
+                :style="{'order':rowHandle.remove.sort}"
                 v-if="rowHandle.remove && !rowHandle.remove.circle && handleRowHandleButtonShow(rowHandle.remove.show, scope.$index, scope.row)"
                 :type="handleAttribute(rowHandle.remove.type, 'danger')"
                 :disabled="handleRowHandleButtonDisabled(rowHandle.remove.disabled, scope.$index, scope.row)"
@@ -505,6 +507,7 @@
             </template>
             <template>
               <el-button
+                :style="{'order':rowHandle.look.sort}"
                 v-if="rowHandle.look && rowHandle.look.circle && handleRowHandleButtonShow(rowHandle.look.show, scope.$index, scope.row)"
                 :type="handleAttribute(rowHandle.look.type, '')"
                 :disabled="handleRowHandleButtonDisabled(rowHandle.look.disabled, scope.$index, scope.row)"
@@ -512,6 +515,7 @@
                 @click="handleLook(scope.$index, scope.row)"
               ></el-button>
               <el-button
+                :style="{'order':rowHandle.look.sort}"
                 v-if="rowHandle.look && !rowHandle.look.circle && handleRowHandleButtonShow(rowHandle.look.show, scope.$index, scope.row)"
                 :type="handleAttribute(rowHandle.look.type, '')"
                 :disabled="handleRowHandleButtonDisabled(rowHandle.look.disabled, scope.$index, scope.row)"
@@ -519,15 +523,19 @@
                 @click="handleLook(scope.$index, scope.row)"
               >{{handleAttribute(rowHandle.look.text, '查看')}}</el-button>
             </template>
-            <template v-for="(item, index) in handleAttribute(rowHandle.custom, [])">
+            <template v-for="item in handleAttribute(rowHandle.custom, [])">
               <template>
                 <el-button
+                  :key="item.text"
+                  :style="{'order':item.sort}"
                   v-if="item.circle && handleRowHandleButtonShow(item.show, scope.$index, scope.row)"
                   :disabled="handleRowHandleButtonDisabled(item.disabled, scope.$index, scope.row)"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item) : item"
                   @click="$emit(item.emit, {index: scope.$index, row: scope.row})"
                 ></el-button>
                 <el-button
+                  :key="item.text"
+                  :style="{'order':item.sort}"
                   v-if="!item.circle && handleRowHandleButtonShow(item.show, scope.$index, scope.row)"
                   :disabled="handleRowHandleButtonDisabled(item.disabled, scope.$index, scope.row)"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item) : item"
@@ -539,7 +547,10 @@
         </el-table-column>
       </el-table>
     </div>
-    <div class="d2-crud-pagination" v-if="pagination">
+    <div
+      class="d2-crud-pagination"
+      v-if="pagination"
+    >
       <el-pagination
         v-bind="pagination"
         @size-change="handlePaginationSizeChange"
@@ -555,7 +566,12 @@
       :before-close="handleDialogCancel"
       v-bind="formOptions"
     >
-      <el-form ref="form" :model="formData" :rules="handleFormRulesMode()" v-bind="formOptions">
+      <el-form
+        ref="form"
+        :model="formData"
+        :rules="handleFormRulesMode()"
+        v-bind="formOptions"
+      >
         <el-row v-bind="formOptions">
           <template v-for="(value, key, index) in formData">
             <el-col
@@ -564,8 +580,12 @@
               :offset="handleFormTemplateMode(key).component ? handleAttribute(handleFormTemplateMode(key).component.offset, 0) : 0"
               :key="index"
             >
-              <el-form-item :label="handleFormTemplateMode(key).title" :prop="key">
+              <el-form-item
+                :label="handleFormTemplateMode(key).title"
+                :prop="key"
+              >
                 <el-input
+                  :ref="'com-'+key"
                   v-if="(!handleFormTemplateMode(key).component) ||((!handleFormTemplateMode(key).component.name) && (!handleFormTemplateMode(key).component.render)) || handleFormTemplateMode(key).component.name === 'el-input'"
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
@@ -573,6 +593,7 @@
                   @change="$emit('form-data-change', {key: key, value: value})"
                 ></el-input>
                 <el-input-number
+                  :ref="'com-'+key"
                   v-else-if="handleFormTemplateMode(key).component.name === 'el-input-number'"
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
@@ -580,6 +601,7 @@
                   @change="$emit('form-data-change', {key: key, value: value})"
                 ></el-input-number>
                 <el-radio-group
+                  :ref="'com-'+key"
                   v-else-if="handleFormTemplateMode(key).component.name === 'el-radio'"
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
@@ -602,6 +624,7 @@
                   </template>
                 </el-radio-group>
                 <el-checkbox-group
+                  :ref="'com-'+key"
                   v-else-if="handleFormTemplateMode(key).component.name === 'el-checkbox'"
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
@@ -624,6 +647,7 @@
                   </template>
                 </el-checkbox-group>
                 <el-select
+                  :ref="'com-'+key"
                   v-else-if="handleFormTemplateMode(key).component.name === 'el-select'"
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
@@ -637,6 +661,7 @@
                   ></el-option>
                 </el-select>
                 <el-cascader
+                  :ref="'com-'+key"
                   v-else-if="handleFormTemplateMode(key).component.name === 'el-cascader'"
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
@@ -644,6 +669,7 @@
                   @change="$emit('form-data-change', {key: key, value: value})"
                 ></el-cascader>
                 <el-switch
+                  :ref="'com-'+key"
                   v-else-if="handleFormTemplateMode(key).component.name === 'el-switch'"
                   v-model="formData[key]"
                   v-bind="handleFormTemplateMode(key).component"
@@ -651,6 +677,7 @@
                   @change="$emit('form-data-change', {key: key, value: value})"
                 ></el-switch>
                 <el-slider
+                  :ref="'com-'+key"
                   v-else-if="handleFormTemplateMode(key).component.name === 'el-slider'"
                   v-model="formData[key]"
                   v-bind="handleFormTemplateMode(key).component"
@@ -658,6 +685,7 @@
                   @change="$emit('form-data-change', {key: key, value: value})"
                 ></el-slider>
                 <el-time-select
+                  :ref="'com-'+key"
                   v-else-if="handleFormTemplateMode(key).component.name === 'el-time-select'"
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
@@ -665,6 +693,7 @@
                   @change="$emit('form-data-change', {key: key, value: value})"
                 ></el-time-select>
                 <el-time-picker
+                  :ref="'com-'+key"
                   v-else-if="handleFormTemplateMode(key).component.name === 'el-time-picker'"
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
@@ -672,6 +701,7 @@
                   @change="$emit('form-data-change', {key: key, value: value})"
                 ></el-time-picker>
                 <el-date-picker
+                  :ref="'com-'+key"
                   v-else-if="handleFormTemplateMode(key).component.name === 'el-date-picker'"
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
@@ -679,6 +709,7 @@
                   @change="$emit('form-data-change', {key: key, value: value})"
                 ></el-date-picker>
                 <el-rate
+                  :ref="'com-'+key"
                   v-else-if="handleFormTemplateMode(key).component.name === 'el-rate'"
                   v-model="formData[key]"
                   v-bind="handleFormTemplateMode(key).component"
@@ -686,6 +717,7 @@
                   @change="$emit('form-data-change', {key: key, value: value})"
                 ></el-rate>
                 <el-color-picker
+                  :ref="'com-'+key"
                   v-else-if="handleFormTemplateMode(key).component.name === 'el-color-picker'"
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
@@ -697,10 +729,13 @@
                   v-model="formData[key]"
                   :component-name="handleFormTemplateMode(key).component.name"
                   :props="(handleFormTemplateMode(key).component.props && formMode === 'look') ? Object.assign({disabled:true},handleFormTemplateMode(key).component.props)  : ((handleFormTemplateMode(key).component.props && formMode !== 'look') ? handleFormTemplateMode(key).component.props:null)"
+                  :ref="'com-'+key"
+                  @handlecustom="handle(key,$event)"
                 ></render-custom-component>
                 <render-component
                   v-else-if="handleFormTemplateMode(key).component.render"
                   :render-function="handleFormTemplateMode(key).component.render"
+                  :ref="'com-'+key"
                   :scope="formData[key]"
                 ></render-component>
               </el-form-item>
@@ -723,67 +758,67 @@
 </template>
 
 <script>
-import base from "./mixin/base";
-import handleRow from "./mixin/handleRow";
-import data from "./mixin/data";
-import edit from "./mixin/edit";
-import add from "./mixin/add";
-import look from "./mixin/look";
-import remove from "./mixin/remove";
-import dialog from "./mixin/dialog";
-import pagination from "./mixin/pagination";
-import exposeMethods from "./mixin/exposeMethods.js";
-import utils from "./mixin/utils";
-import renderComponent from "./components/renderComponent.vue";
-import renderCustomComponent from "./components/renderCustomComponent.vue";
-// import d2Column from './components/d2-column.vue'
+  import base from "./mixin/base";
+  import handleRow from "./mixin/handleRow";
+  import data from "./mixin/data";
+  import edit from "./mixin/edit";
+  import add from "./mixin/add";
+  import look from "./mixin/look";
+  import remove from "./mixin/remove";
+  import dialog from "./mixin/dialog";
+  import pagination from "./mixin/pagination";
+  import exposeMethods from "./mixin/exposeMethods.js";
+  import utils from "./mixin/utils";
+  import customEvent from "./mixin/customEvent";
+  import renderComponent from "./components/renderComponent.vue";
+  import renderCustomComponent from "./components/renderCustomComponent.vue";
+  import Vue from "vue";
+  // import d2Column from './components/d2-column.vue'
 
-export default {
-  name: "d2-crud",
-  mixins: [
-    base,
-    data,
-    handleRow,
-    edit,
-    add,
-    look,
-    remove,
-    dialog,
-    pagination,
-    exposeMethods,
-    utils
-  ],
-  components: {
-    renderComponent,
-    renderCustomComponent
-    // d2Column
-  }
-};
+  export default {
+    name: "d2-crud",
+    mixins: [
+      base,
+      data,
+      handleRow,
+      edit,
+      add,
+      look,
+      remove,
+      dialog,
+      pagination,
+      exposeMethods,
+      utils,
+      customEvent
+    ],
+    components: {
+      renderComponent,
+      renderCustomComponent
+      // d2Column
+    }
+  };
 </script>
 
 <style lang="scss" scoped>
-.d2-crud {
-  .d2-crud-header {
-    border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
-  }
-
-  .d2-crud-body {
-    padding: 15px 0;
-    overflow: hidden;
-  }
-  .d2-crud-pagination {
-    padding: 15px 0;
-  }
-}
-</style>
-<style lang="scss">
-
-  .rowHandle > .cell {
-      display: flex;
-      .btn {
-        margin-left: 10px;
-      }
+  .d2-crud {
+    .d2-crud-header {
+      border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
     }
 
-
+    .d2-crud-body {
+      padding: 15px 0;
+      overflow: hidden;
+    }
+    .d2-crud-pagination {
+      padding: 15px 0;
+    }
+  }
+</style>
+<style lang="scss">
+  .rowHandle > .cell {
+    display: flex;
+    .btn {
+      margin-left: 10px !important;
+    }
+  }
 </style>
