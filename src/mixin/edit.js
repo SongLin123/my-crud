@@ -2,7 +2,7 @@ import _forEach from 'lodash.foreach'
 import _clonedeep from 'lodash.clonedeep'
 
 export default {
-  data () {
+  data() {
     return {
       /**
        * @description 被编辑行的索引
@@ -16,7 +16,7 @@ export default {
      * @param {Number} index 行所在索引
      * @param {Object} row 行数据
      */
-    handleEdit (index, row, templage = null) {
+    handleEdit(index, row, templage = null) {
       this.formMode = 'edit'
       this.editDataStorage = _clonedeep(row)
       this.isDialogShow = true

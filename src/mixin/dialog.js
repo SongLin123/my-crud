@@ -25,6 +25,13 @@ export default {
       default: '编辑'
     },
     /**
+ * @description dialog查看标题
+ */
+    lookTitle: {
+      type: String,
+      default: '查看'
+    },
+    /**
      * @description 新增表单模板
      */
     addTemplate: {
@@ -35,6 +42,13 @@ export default {
      * @description 修改表单模板
      */
     editTemplate: {
+      type: Object,
+      default: null
+    },
+    /**
+    * @description 查看表单模板
+    */
+    lookTemplate: {
       type: Object,
       default: null
     },
@@ -53,7 +67,7 @@ export default {
       default: null
     }
   },
-  data () {
+  data() {
     return {
       /**
        * @description dialog显示与隐藏
@@ -78,14 +92,22 @@ export default {
       /**
        * @description 修改表单模板暂存
        */
-      editTemplateStorage: {}
+      editTemplateStorage: {},
+      /**
+       * @description 查看暂存数据，用于储存不在editTemplate中的数据
+       */
+      lookDataStorage: {},
+      /**
+      * @description 查看表单模板暂存
+      */
+      lookTemplateStorage: {}
     }
   },
   methods: {
     /**
      * @description 保存行数据
      */
-    handleDialogSave () {
+    handleDialogSave() {
       this.$refs.form.validate((valid) => {
         if (!valid) {
           return false
@@ -123,19 +145,21 @@ export default {
               ...param
             })
           })
+        } else {
+          this.handleCloseDialog()
         }
       })
     },
     /**
      * @description 取消保存行数据
      */
-    handleDialogCancel (done) {
+    handleDialogCancel(done) {
       this.$emit('dialog-cancel', done)
     },
     /**
      * @description 保存完成
      */
-    handleDialogSaveDone (rowData) {
+    handleDialogSaveDone(rowData) {
       if (this.formMode === 'edit') {
         this.handleUpdateRow(this.editIndex, rowData)
         this.editDataStorage = {}
@@ -147,7 +171,7 @@ export default {
     /**
      * @description 关闭模态框
      */
-    handleCloseDialog () {
+    handleCloseDialog() {
       this.isDialogShow = false
     }
   }
