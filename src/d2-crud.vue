@@ -580,6 +580,7 @@
               :span="handleFormTemplateMode(key).component ? handleAttribute(handleFormTemplateMode(key).component.span, 24) : 24"
               :offset="handleFormTemplateMode(key).component ? handleAttribute(handleFormTemplateMode(key).component.offset, 0) : 0"
               :key="index"
+              :class="[handleFormTemplateMode(key)._class]"
             >
               <el-form-item :label="handleFormTemplateMode(key).title" :prop="key">
                 <el-input

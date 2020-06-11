@@ -20,6 +20,9 @@
       @dialog-cancel="handleDialogCancel"
       :formOptions="formOptions"
       @form-data-change="handleFormDataChange"
+      @dialog-open="handleDialogOpen"
+      :add-rules="rules"
+      :edit-rules="rules"
     >
       <template #header>
         <el-button type="primary" style="margin-bottom: 5px" @click="addDevice">新增设备</el-button>
@@ -34,6 +37,30 @@ export default {
     return {
       formOptions: {
         // lookNoEleLabelWidth: 100
+      },
+      rules: {
+        roleName: [
+          {
+            required: true,
+            message: "请输入名字",
+            trigger: "blur"
+          }
+        ],
+
+        lastUpdatedTime: [
+          {
+            required: true,
+            message: "请输入时间",
+            trigger: "blur"
+          }
+        ],
+        remarksE: [
+          {
+            required: true,
+            message: "请输入备注2",
+            trigger: "blur"
+          }
+        ]
       },
       rowHandle: {
         minWidth: "180px",
@@ -80,18 +107,21 @@ export default {
         {
           roleName: "角色1",
           createdTime: "时间1",
-          lastUpdatedTime: "修改时间1",
+          lastUpdatedTime: "",
           remarks: "备注1",
           mycom: 1,
-          mycom2: 2
+          mycom2: 2,
+          test1: "",
+          remarksE: "备注2"
         },
         {
           roleName: "角色2",
           createdTime: "时间2",
-          lastUpdatedTime: "修改时间2",
-          remarks: "备注2",
+          remarks: "22",
           mycom: 2,
-          mycom2: 1
+          mycom2: 1,
+          remarksE: "备注22",
+          lastUpdatedTime: "修改时间1"
         }
       ],
       addTemplate: {
@@ -99,6 +129,7 @@ export default {
           title: "角色名",
           value: "",
           class: "my_label",
+          _sort: 1,
           component: {
             placeholder: " 仅可输入英文大小写、数字"
           }
@@ -106,6 +137,8 @@ export default {
         remarks: {
           title: "备注",
           value: "",
+          _sort: 2,
+          _class: "gg",
           component: {
             placeholder: ""
           }
@@ -113,6 +146,7 @@ export default {
         mycom: {
           title: "自定义选择框",
           value: "",
+          _sort: 3,
           component: {
             name: testCom,
             formatter(val) {
@@ -126,9 +160,11 @@ export default {
             }
           }
         },
+
         mycom2: {
           title: "自带选择框",
           value: "",
+          _sort: 4,
           component: {
             name: "el-select",
             options: [
@@ -137,13 +173,20 @@ export default {
             ]
           }
         }
-        // lastUpdatedTime: {
-        //   title: "修改时间",
-        //   value: ""
-        //   // component: {
-        //   //   name: roleCheck
-        //   // }
-        // }
+      },
+      newAdd: {
+        lastUpdatedTime: {
+          title: "修改时间",
+          value: "",
+          _sort: 5
+        }
+      },
+      newAdd2: {
+        remarksE: {
+          title: "备注2",
+          value: "",
+          _sort: 2
+        }
       }
     };
   },
@@ -154,7 +197,70 @@ export default {
     handleAdd(data, done) {
       console.log(data);
     },
+    // 表单打开
+    handleDialogOpen({ mode, row }) {
+      if (mode === "edit") {
+        if (row.mycom2 == 1) {
+          this.addTemplate = { ...this.addTemplate, ...this.newAdd };
+          let { remarksE, ...parmas } = this.addTemplate;
+          this.addTemplate = parmas;
+        } else {
+          this.addTemplate = { ...this.addTemplate, ...this.newAdd2 };
+          let { lastUpdatedTime, ...parmas } = this.addTemplate;
+          this.addTemplate = parmas;
+        }
+      }
+    },
     handleDialogCancel(done) {
+      this.addTemplate = {
+        roleName: {
+          title: "角色名",
+          value: "",
+          class: "my_label",
+          _sort: 1,
+          component: {
+            placeholder: " 仅可输入英文大小写、数字"
+          }
+        },
+        remarks: {
+          title: "备注",
+          value: "",
+          _sort: 2,
+          component: {
+            placeholder: ""
+          }
+        },
+        mycom: {
+          title: "自定义选择框",
+          value: "",
+          _sort: 3,
+          component: {
+            name: testCom,
+            formatter(val) {
+              return val === 1 ? "测试1" : "测试2";
+            },
+            props: {
+              options: [
+                { label: "测试1", value: 1 },
+                { label: "测试2", value: 2 }
+              ]
+            }
+          }
+        },
+
+        mycom2: {
+          title: "自带选择框",
+          value: "",
+          _sort: 4,
+          component: {
+            name: "el-select",
+            options: [
+              { label: "测试1", value: 1 },
+              { label: "测试2", value: 2 }
+            ]
+          }
+        }
+      };
       done();
     },
     addDevice() {
@@ -167,15 +273,17 @@ export default {
       console.log(value);
       if (key == "mycom2") {
         if (value == 1) {
-          this.$set(this.addTemplate, "lastUpdatedTime", {
-            title: "修改时间",
-            value: ""
-          });
+          this.addTemplate = { ...this.addTemplate, ...this.newAdd };
+          let { remarksE, ...parmas } = this.addTemplate;
+          this.addTemplate = parmas;
         } else {
-          this.$delete(this.addTemplate, "lastUpdatedTime");
+          this.addTemplate = { ...this.addTemplate, ...this.newAdd2 };
+          let { lastUpdatedTime, ...parmas } = this.addTemplate;
+          this.addTemplate = parmas;
         }
       }
     }
-  }
+  },
+  mounted() {}
 };
 </script>

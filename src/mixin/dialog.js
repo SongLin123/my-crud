@@ -81,6 +81,7 @@ export default {
        * @description 表单模式
        */
       formMode: 'edit',
+      watchEditOpen: 0,
       /**
        * @description 编辑暂存数据，用于储存不在editTemplate中的数据
        */
@@ -178,11 +179,58 @@ export default {
   // watch: {
   //   addTemplate: {
   //     handler(newV, oldV) {
-  //       this.addTemplateStorage = _clonedeep(newV)
-  //       _forEach(this.formData, (value, key) => {
-  //         this.formData[key] = this.addTemplateStorage[key].value
+  //       console.log(this.formMode)
+  //       let data = {};
+  //       // 对象键值排序
+  //       let sortedObjKeys = Object.keys(newV).sort(function (a, b) {
+  //         return newV[a]._sort - newV[b]._sort;
+  //       });
+
+  //       for (let key of sortedObjKeys) {
+  //         data[key] = ""
+  //       }
+  //       // 保存已输入的值
+  //       let formDataStorge = _clonedeep(this.formData);
+  //       Object.keys(data).map(k => {
+  //         data[k] = formDataStorge[k]
   //       })
-  //     }
-  //   }
+  //       this.formData = _clonedeep(data);
+  //       console.log("datatatat", this.formData)
+  //       this.addTemplateStorage = _clonedeep(newV)
+  //       // this.$refs.form.clearValidate();
+
+  //     },
+  //     deep: true,
+  //   },
+  //   editTemplate: {
+  //     handler(newV, oldV) {
+  //       console.log(this.formMode)
+  //       let data = {};
+  //       // 对象键值排序
+  //       let sortedObjKeys = Object.keys(newV).sort(function (a, b) {
+  //         return newV[a]._sort - newV[b]._sort;
+  //       });
+  //       for (let key of sortedObjKeys) {
+  //         data[key] = ""
+  //       }
+  //       // 保存已输入的值
+  //       let formDataStorge
+  //       if (this.watchEditOpen === 0) {
+  //         formDataStorge = _clonedeep(this.editDataStorage);
+  //         this.watchEditOpen = 1;
+  //       } else {
+  //         formDataStorge = _clonedeep(this.formData);
+  //       }
+  //       Object.keys(data).map(k => {
+  //         data[k] = formDataStorge[k]
+  //       })
+  //       this.formData = _clonedeep(data);
+  //       this.editTemplateStorage = _clonedeep(newV)
+  //       // this.$refs.form.clearValidate();
+
+  //     },
+  //     deep: true,
+  //   },
+
   // },
 }
