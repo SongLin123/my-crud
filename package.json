@@ -1,8 +1,8 @@
 {
-  "name": "crud",
-  "description": "A d2-projects project",
-  "version": "2.0.5",
-  "author": "",
+  "name": "my-element-crud",
+  "description": "d2-crud extend",
+  "version": "0.0.3",
+  "author": "songlin",
   "license": "MIT",
   "private": false,
   "main": "dist/d2-crud.js",
