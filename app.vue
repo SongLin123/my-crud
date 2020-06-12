@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-06-09 14:07:21
  * @LastEditors: songlin
- * @LastEditTime: 2020-06-09 16:44:10
+ * @LastEditTime: 2020-06-10 18:03:17
  * @FilePath: \d2-crud\app.vue
 -->
 <template>
@@ -23,6 +23,7 @@
       @dialog-open="handleDialogOpen"
       :add-rules="rules"
       :edit-rules="rules"
+      @event:com-coma="handle"
     >
       <template #header>
         <el-button type="primary" style="margin-bottom: 5px" @click="addDevice">新增设备</el-button>
@@ -84,47 +85,7 @@ export default {
           align: "right",
           confirm: true
         }
-      },
-
-      columns: [
-        {
-          title: "角色名",
-          key: "roleName"
-        },
-        {
-          title: "创建时间",
-          key: "createdTime"
-        },
-        {
-          title: "修改时间",
-          key: "lastUpdatedTime"
-        },
-        {
-          title: "备注",
-          key: "remarks"
-        }
-      ],
-      data: [
-        {
-          roleName: "角色1",
-          createdTime: "时间1",
-          lastUpdatedTime: "",
-          remarks: "备注1",
-          mycom: 1,
-          mycom2: 2,
-          test1: "",
-          remarksE: "备注2"
-        },
-        {
-          roleName: "角色2",
-          createdTime: "时间2",
-          remarks: "22",
-          mycom: 2,
-          mycom2: 1,
-          remarksE: "备注22",
-          lastUpdatedTime: "修改时间1"
-        }
-      ]
+      }
     };
   },
   computed: {

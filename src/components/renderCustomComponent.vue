@@ -1,3 +1,9 @@
+<!--
+ * @Date: 2020-06-09 12:33:27
+ * @LastEditors: songlin
+ * @LastEditTime: 2020-06-10 17:35:39
+ * @FilePath: \d2-crud\src\components\renderCustomComponent.vue
+-->
 <script>
 export default {
   name: 'render-custom-component',
@@ -38,7 +44,10 @@ export default {
       on: {
         input: function (event) {
           self.$emit('input', event)
-        }
+        },
+        customEmit (event) {
+          self.$emit('handlecustom', event)
+        },
       }
     })
   }
