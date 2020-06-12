@@ -18,111 +18,115 @@
       @row-add="handleAdd"
       @row-edit="handleEdit"
       @dialog-cancel="handleDialogCancel"
+      :formOptions="formOptions"
+      @form-data-change="handleFormDataChange"
+      @dialog-open="handleDialogOpen"
+      :add-rules="rules"
+      :edit-rules="rules"
       @event:com-coma="handle"
     >
       <template #header>
-        <el-button
-          type="primary"
-          style="margin-bottom: 5px"
-          @click="addDevice"
-        >新增设备</el-button>
+        <el-button type="primary" style="margin-bottom: 5px" @click="addDevice">新增设备</el-button>
       </template>
     </d2-crud>
   </div>
 </template>
 <script>
-  import testCom from "./myComponent";
-  import coma from "./coma";
-  import comb from "./comb";
-
-  export default {
-    data() {
-      return {
-        formOptions: {
-          // lookNoEleLabelWidth: 100
-        },
-        rowHandle: {
-          minWidth: "180px",
-          look: {
-            text: "查看",
-            emit: "lookHandle",
-            sort: 3
-          },
-          lookNoEle: {
-            text: "纯文字查看",
-            emit: "lookHandle"
-          },
-          edit: {
-            text: "编辑",
-            emit: "editHandle",
-            type: "warning ",
-            sort: 1
-          },
-          remove: {
-            icon: "el-icon-remove",
-            text: "删除",
-            align: "right",
-            confirm: true
-          }
-        },
-
-        columns: [
+import testCom from "./myComponent";
+export default {
+  data() {
+    return {
+      formOptions: {
+        // lookNoEleLabelWidth: 100
+      },
+      show: "",
+      rules: {
+        roleName: [
           {
-            title: "角色名",
-            key: "roleName"
-          },
-          {
-            title: "创建时间",
-            key: "createdTime"
-          },
-          {
-            title: "修改时间",
-            key: "lastUpdatedTime"
-          },
-          {
-            title: "备注",
-            key: "remarks"
+            required: true,
+            message: "请输入名字",
+            trigger: "blur"
           }
         ],
-        data: [
+
+        lastUpdatedTime: [
           {
-            roleName: "角色1",
-            createdTime: "时间1",
-            lastUpdatedTime: "修改时间1",
-            remarks: "备注1",
-            mycom: 1,
-            mycom2: 2
-          },
-          {
-            roleName: "角色2",
-            createdTime: "时间2",
-            lastUpdatedTime: "修改时间2",
-            remarks: "备注2",
-            mycom: 2,
-            mycom2: 1
+            required: true,
+            message: "请输入时间",
+            trigger: "blur"
           }
         ],
-        addTemplate: {
+        remarksE: [
+          {
+            required: true,
+            message: "请输入备注2",
+            trigger: "blur"
+          }
+        ]
+      },
+      rowHandle: {
+        minWidth: "180px",
+        look: {
+          text: "查看",
+          emit: "lookHandle"
+        },
+        lookNoEle: {
+          text: "纯文字查看",
+          emit: "lookHandle"
+        },
+        edit: {
+          text: "编辑",
+          emit: "editHandle",
+          type: "warning "
+        },
+        remove: {
+          icon: "el-icon-remove",
+          text: "删除",
+          align: "right",
+          confirm: true
+        }
+      }
+    };
+  },
+  computed: {
+    addTemplate: {
+      get() {
+        return {
           roleName: {
             title: "角色名",
             value: "",
+            class: "my_label",
+            _sort: 1,
             component: {
-              name: "el-input-number",
-              span: 12,
               placeholder: " 仅可输入英文大小写、数字"
             }
           },
           remarks: {
-            title: "描述",
+            title: "备注",
             value: "",
+            _sort: 2,
+            _class: "gg",
             component: {
               placeholder: ""
             }
           },
-          mycom: {
-            title: "选择框",
+          remarksE: {
+            title: "备注2",
             value: "",
+            _sort: 2,
             component: {
+              show: this.show === 2
+            }
+          },
+          mycom: {
+            title: "自定义选择框",
+            value: "",
+            _sort: 3,
+            component: {
+              name: testCom,
+              formatter(val) {
+                return val === 1 ? "测试1" : "测试2";
+              },
               props: {
                 options: [
                   { label: "测试1", value: 1 },
@@ -131,37 +135,86 @@
               }
             }
           },
-          coma: {
-            title: "a",
+          mycom2: {
+            title: "自带选择框",
             value: "",
+            _sort: 4,
             component: {
-              name: coma
+              name: "el-select",
+              options: [
+                { label: "测试1", value: 1 },
+                { label: "测试2", value: 2 }
+              ]
             }
           },
-          comb: {
-            title: "b",
+          lastUpdatedTime: {
+            title: "修改时间",
             value: "",
+            _sort: 5,
             component: {
-              name: comb
+              show: this.show === 1
             }
           }
-        }
-      };
-    },
-    methods: {
-      handleEdit({ row }, done) {},
-      handleAdd(data, done) {},
-      handleDialogCancel(done) {
-        done();
+        };
       },
-      handle(data) {
-        this.$refs.d2Crud.getRef("comb").handle(data);
-      },
-      addDevice() {
-        this.$refs.d2Crud.showDialog({
-          mode: "add"
-        });
+      set(newV) {
+        return newV;
       }
     }
-  };
+  },
+  methods: {
+    handleEdit({ row }, done) {
+      console.log(row);
+    },
+    handleAdd(data, done) {
+      console.log(data);
+    },
+    // 表单打开
+    handleDialogOpen({ mode, row }) {
+      if (mode === "add") {
+        this.show = "";
+      }
+      if (mode === "edit" || mode == "look") {
+        if (row.mycom2 == 1) {
+          this.show = 1;
+        } else {
+          this.show = 2;
+        }
+      }
+    },
+    handleDialogCancel(done) {
+      done();
+    },
+    addDevice() {
+      this.$refs.d2Crud.showDialog({
+        mode: "add"
+      });
+    },
+    handleFormDataChange({ key, value }) {
+      console.log(key);
+      console.log(value);
+      if (key == "mycom2") {
+        if (value == 1) {
+          this.show = 1;
+          console.log(this.addTemplate);
+          // this.addTemplate = Object.assign(
+          //   {},
+          //   JSON.parse(JSON.stringify(this.addTemplate))
+          // );
+          // this.addTemplate = { ...this.addTemplate, ...this.newAdd };
+          // let { remarksE, ...parmas } = this.addTemplate;
+          // this.addTemplate = parmas;
+        } else {
+          this.show = 2;
+          console.log(this.addTemplate);
+
+          // this.addTemplate = { ...this.addTemplate, ...this.newAdd2 };
+          // let { lastUpdatedTime, ...parmas } = this.addTemplate;
+          // this.addTemplate = parmas;
+        }
+      }
+    }
+  },
+  mounted() {}
+};
 </script>

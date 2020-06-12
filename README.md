@@ -147,6 +147,25 @@ rowHandle: {
   },
 ```
 
+
+-- 增加动态显示隐藏form表单
+- 使用：
+addTemplate值需要放在计算属性中
+根据需要设置show的值
+表单打开时如果是修改和查看也需要设置show值
+``` js
+ roleName: {
+    title: "角色名",
+    value: "",
+    class: "my_label",
+    component: {
+      show: this.show === 1
+      placeholder: " 仅可输入英文大小写、数字"
+    }
+  },
+```
+
+=======
 - 添加表单中自定义组件事件
 -使用：
 > 组件A
