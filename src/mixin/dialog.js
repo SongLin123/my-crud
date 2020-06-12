@@ -119,6 +119,16 @@ export default {
           _forEach(this.formData, (value, key) => {
             this._set(rowData, key, value)
           })
+          // 删除隐藏字段的值
+          let obj = _clonedeep(this.editTemplateStorage)
+          for (let key of Object.keys(obj)) {
+            if (obj[key].component.show === undefined) {
+              obj[key].component.show = true
+            }
+            if (!obj[key].component.show) {
+              delete rowData[key]
+            }
+          }
           this.$emit('row-edit', {
             index: this.editIndex,
             row: rowData
@@ -136,6 +146,16 @@ export default {
           _forEach(this.formData, (value, key) => {
             this._set(rowData, key, value)
           })
+          // 删除隐藏字段的值
+          let obj = _clonedeep(this.addTemplateStorage)
+          for (let key of Object.keys(obj)) {
+            if (obj[key].component.show === undefined) {
+              obj[key].component.show = true
+            }
+            if (!obj[key].component.show) {
+              delete rowData[key]
+            }
+          }
           this.$emit('row-add', rowData, (param = null) => {
             if (param === false) {
               this.handleCloseDialog()
@@ -146,6 +166,7 @@ export default {
               ...param
             })
           })
+
         } else {
           this.handleCloseDialog()
         }
@@ -176,61 +197,43 @@ export default {
       this.isDialogShow = false
     }
   },
-  // watch: {
-  //   addTemplate: {
-  //     handler(newV, oldV) {
-  //       console.log(this.formMode)
-  //       let data = {};
-  //       // 对象键值排序
-  //       let sortedObjKeys = Object.keys(newV).sort(function (a, b) {
-  //         return newV[a]._sort - newV[b]._sort;
-  //       });
+  watch: {
+    addTemplate: {
+      handler(newV, oldV) {
+        if (this.formMode === "add") {
+          let data = {};
+          // 保存已输入的值
+          let formDataStorge = _clonedeep(this.formData);
+          this.addTemplateStorage = _clonedeep(newV)
+          _forEach(formDataStorge, (value, key) => {
+            this.formData[key] = formDataStorge[key]
+          })
+        }
 
-  //       for (let key of sortedObjKeys) {
-  //         data[key] = ""
-  //       }
-  //       // 保存已输入的值
-  //       let formDataStorge = _clonedeep(this.formData);
-  //       Object.keys(data).map(k => {
-  //         data[k] = formDataStorge[k]
-  //       })
-  //       this.formData = _clonedeep(data);
-  //       console.log("datatatat", this.formData)
-  //       this.addTemplateStorage = _clonedeep(newV)
-  //       // this.$refs.form.clearValidate();
+      },
+      deep: true,
+    },
+    editTemplate: {
+      handler(newV, oldV) {
+        if (this.formMode === "edit") {
+          this.editDataStorage = _clonedeep(this.d2CrudData[this.editIndex])
+          let formDataStorge = _clonedeep(this.formData);
+          this.editTemplateStorage = _clonedeep(newV)
+          _forEach(formDataStorge, (value, key) => {
+            this.formData[key] = formDataStorge[key]
+          })
+        }
+      },
+      deep: true,
+    },
+    lookTemplate: {
+      handler(newV, oldV) {
+        if (this.formMode === "look") {
+          this.handleLook(this.lookIndex, this.d2CrudData[this.lookIndex], newV)
+        }
+      },
+      deep: true
+    }
 
-  //     },
-  //     deep: true,
-  //   },
-  //   editTemplate: {
-  //     handler(newV, oldV) {
-  //       console.log(this.formMode)
-  //       let data = {};
-  //       // 对象键值排序
-  //       let sortedObjKeys = Object.keys(newV).sort(function (a, b) {
-  //         return newV[a]._sort - newV[b]._sort;
-  //       });
-  //       for (let key of sortedObjKeys) {
-  //         data[key] = ""
-  //       }
-  //       // 保存已输入的值
-  //       let formDataStorge
-  //       if (this.watchEditOpen === 0) {
-  //         formDataStorge = _clonedeep(this.editDataStorage);
-  //         this.watchEditOpen = 1;
-  //       } else {
-  //         formDataStorge = _clonedeep(this.formData);
-  //       }
-  //       Object.keys(data).map(k => {
-  //         data[k] = formDataStorge[k]
-  //       })
-  //       this.formData = _clonedeep(data);
-  //       this.editTemplateStorage = _clonedeep(newV)
-  //       // this.$refs.form.clearValidate();
-
-  //     },
-  //     deep: true,
-  //   },
-
-  // },
+  },
 }

@@ -38,6 +38,7 @@ export default {
       formOptions: {
         // lookNoEleLabelWidth: 100
       },
+      show: "",
       rules: {
         roleName: [
           {
@@ -123,72 +124,82 @@ export default {
           remarksE: "备注22",
           lastUpdatedTime: "修改时间1"
         }
-      ],
-      addTemplate: {
-        roleName: {
-          title: "角色名",
-          value: "",
-          class: "my_label",
-          _sort: 1,
-          component: {
-            placeholder: " 仅可输入英文大小写、数字"
-          }
-        },
-        remarks: {
-          title: "备注",
-          value: "",
-          _sort: 2,
-          _class: "gg",
-          component: {
-            placeholder: ""
-          }
-        },
-        mycom: {
-          title: "自定义选择框",
-          value: "",
-          _sort: 3,
-          component: {
-            name: testCom,
-            formatter(val) {
-              return val === 1 ? "测试1" : "测试2";
-            },
-            props: {
+      ]
+    };
+  },
+  computed: {
+    addTemplate: {
+      get() {
+        return {
+          roleName: {
+            title: "角色名",
+            value: "",
+            class: "my_label",
+            _sort: 1,
+            component: {
+              placeholder: " 仅可输入英文大小写、数字"
+            }
+          },
+          remarks: {
+            title: "备注",
+            value: "",
+            _sort: 2,
+            _class: "gg",
+            component: {
+              placeholder: ""
+            }
+          },
+          remarksE: {
+            title: "备注2",
+            value: "",
+            _sort: 2,
+            component: {
+              show: this.show === 2
+            }
+          },
+          mycom: {
+            title: "自定义选择框",
+            value: "",
+            _sort: 3,
+            component: {
+              name: testCom,
+              formatter(val) {
+                return val === 1 ? "测试1" : "测试2";
+              },
+              props: {
+                options: [
+                  { label: "测试1", value: 1 },
+                  { label: "测试2", value: 2 }
+                ]
+              }
+            }
+          },
+          mycom2: {
+            title: "自带选择框",
+            value: "",
+            _sort: 4,
+            component: {
+              name: "el-select",
               options: [
                 { label: "测试1", value: 1 },
                 { label: "测试2", value: 2 }
               ]
             }
+          },
+          lastUpdatedTime: {
+            title: "修改时间",
+            value: "",
+            _sort: 5,
+            component: {
+              show: this.show === 1
+            }
           }
-        },
-
-        mycom2: {
-          title: "自带选择框",
-          value: "",
-          _sort: 4,
-          component: {
-            name: "el-select",
-            options: [
-              { label: "测试1", value: 1 },
-              { label: "测试2", value: 2 }
-            ]
-          }
-        }
+        };
       },
-      newAdd: {
-        lastUpdatedTime: {
-          title: "修改时间",
-          value: "",
-          _sort: 5
-        }
-      },
-      newAdd2: {
-        remarksE: {
-          title: "备注2",
-          value: "",
-          _sort: 2
-        }
+      set(newV) {
+        return newV;
       }
-    };
+    }
   },
   methods: {
     handleEdit({ row }, done) {
@@ -199,68 +210,18 @@ export default {
     },
     // 表单打开
     handleDialogOpen({ mode, row }) {
-      if (mode === "edit") {
+      if (mode === "add") {
+        this.show = "";
+      }
+      if (mode === "edit" || mode == "look") {
         if (row.mycom2 == 1) {
-          this.addTemplate = { ...this.addTemplate, ...this.newAdd };
-          let { remarksE, ...parmas } = this.addTemplate;
-          this.addTemplate = parmas;
+          this.show = 1;
         } else {
-          this.addTemplate = { ...this.addTemplate, ...this.newAdd2 };
-          let { lastUpdatedTime, ...parmas } = this.addTemplate;
-          this.addTemplate = parmas;
+          this.show = 2;
         }
       }
     },
     handleDialogCancel(done) {
-      this.addTemplate = {
-        roleName: {
-          title: "角色名",
-          value: "",
-          class: "my_label",
-          _sort: 1,
-          component: {
-            placeholder: " 仅可输入英文大小写、数字"
-          }
-        },
-        remarks: {
-          title: "备注",
-          value: "",
-          _sort: 2,
-          component: {
-            placeholder: ""
-          }
-        },
-        mycom: {
-          title: "自定义选择框",
-          value: "",
-          _sort: 3,
-          component: {
-            name: testCom,
-            formatter(val) {
-              return val === 1 ? "测试1" : "测试2";
-            },
-            props: {
-              options: [
-                { label: "测试1", value: 1 },
-                { label: "测试2", value: 2 }
-              ]
-            }
-          }
-        },
-
-        mycom2: {
-          title: "自带选择框",
-          value: "",
-          _sort: 4,
-          component: {
-            name: "el-select",
-            options: [
-              { label: "测试1", value: 1 },
-              { label: "测试2", value: 2 }
-            ]
-          }
-        }
-      };
       done();
     },
     addDevice() {
@@ -273,13 +234,22 @@ export default {
       console.log(value);
       if (key == "mycom2") {
         if (value == 1) {
-          this.addTemplate = { ...this.addTemplate, ...this.newAdd };
-          let { remarksE, ...parmas } = this.addTemplate;
-          this.addTemplate = parmas;
+          this.show = 1;
+          console.log(this.addTemplate);
+          // this.addTemplate = Object.assign(
+          //   {},
+          //   JSON.parse(JSON.stringify(this.addTemplate))
+          // );
+          // this.addTemplate = { ...this.addTemplate, ...this.newAdd };
+          // let { remarksE, ...parmas } = this.addTemplate;
+          // this.addTemplate = parmas;
         } else {
-          this.addTemplate = { ...this.addTemplate, ...this.newAdd2 };
-          let { lastUpdatedTime, ...parmas } = this.addTemplate;
-          this.addTemplate = parmas;
+          this.show = 2;
+          console.log(this.addTemplate);
+
+          // this.addTemplate = { ...this.addTemplate, ...this.newAdd2 };
+          // let { lastUpdatedTime, ...parmas } = this.addTemplate;
+          // this.addTemplate = parmas;
         }
       }
     }

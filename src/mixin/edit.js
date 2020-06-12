@@ -24,7 +24,6 @@ export default {
         mode: 'edit',
         row
       })
-      this.watchEditOpen = 0;
       this.editIndex = index
       if (templage) {
         this.formData = _clonedeep(templage)
