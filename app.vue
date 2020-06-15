@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-06-09 14:07:21
  * @LastEditors: songlin
- * @LastEditTime: 2020-06-10 18:03:17
+ * @LastEditTime: 2020-06-15 14:47:33
  * @FilePath: \d2-crud\app.vue
 -->
 <template>
@@ -191,8 +191,6 @@ export default {
       });
     },
     handleFormDataChange({ key, value }) {
-      console.log(key);
-      console.log(value);
       if (key == "mycom2") {
         if (value == 1) {
           this.show = 1;

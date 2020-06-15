@@ -1,14 +1,14 @@
 {
   "name": "my-element-crud",
   "description": "d2-crud extend",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "songlin",
   "license": "MIT",
   "private": false,
   "main": "dist/d2-crud.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/d2-projects/d2-crud"
+    "url": "https://github.com/SongLin123/my-crud"
   },
   "keywords": [
     "d2-crud",
