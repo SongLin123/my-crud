@@ -1,14 +1,14 @@
 {
   "name": "my-element-crud",
   "description": "d2-crud extend",
-  "version": "0.0.3",
+  "version": "0.0.8",
   "author": "songlin",
   "license": "MIT",
   "private": false,
   "main": "dist/d2-crud.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/d2-projects/d2-crud"
+    "url": "https://github.com/SongLin123/my-crud"
   },
   "keywords": [
     "d2-crud",
@@ -19,7 +19,8 @@
   ],
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-    "start": "cross-env NODE_ENV=dev webpack-dev-server --open"
+    "start": "cross-env NODE_ENV=dev webpack-dev-server --open",
+    "up":"npm run build && npm publish"
   },
   "dependencies": {
     "lodash.clonedeep": "^4.5.0",
