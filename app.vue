@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-06-09 14:07:21
  * @LastEditors: songlin
- * @LastEditTime: 2020-06-15 14:47:33
+ * @LastEditTime: 2020-06-18 15:52:28
  * @FilePath: \d2-crud\app.vue
 -->
 <template>
@@ -36,6 +36,18 @@ import testCom from "./myComponent";
 export default {
   data() {
     return {
+      data:[{
+        roleName:54565,
+        createdTime:8484
+      }],
+      columns:[ {
+            title: '角色名',
+            key: 'roleName'
+          },
+          {
+            title: '创建时间',
+            key: 'createdTime'
+          },],
       formOptions: {
         // lookNoEleLabelWidth: 100
       },
@@ -68,16 +80,20 @@ export default {
         minWidth: "180px",
         look: {
           text: "查看",
-          emit: "lookHandle"
+          emit: "lookHandle",
+          sort:5
         },
         lookNoEle: {
           text: "纯文字查看",
-          emit: "lookHandle"
+          emit: "lookHandle",
+          sort:2
         },
         edit: {
           text: "编辑",
           emit: "editHandle",
-          type: "warning "
+          type: "warning ",
+          sort:1
+
         },
         remove: {
           icon: "el-icon-remove",
@@ -169,6 +185,9 @@ export default {
     handleAdd(data, done) {
       console.log(data);
     },
+          handle(data) {
+        this.$refs.d2Crud.getRef('comb').handle(data)
+      },
     // 表单打开
     handleDialogOpen({ mode, row }) {
       if (mode === "add") {

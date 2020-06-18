@@ -474,7 +474,7 @@
             <template>
               <el-button
                 class="btn"
-                :style="{'order':rowHandle.edit.sort}"
+                :style="{'order':rowHandle.edit.sort||100}"
                 v-if="rowHandle.edit && rowHandle.edit.circle && handleRowHandleButtonShow(rowHandle.edit.show, scope.$index, scope.row)"
                 :disabled="handleRowHandleButtonDisabled(rowHandle.edit.disabled, scope.$index, scope.row)"
                 v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, rowHandle.edit) : rowHandle.edit"
@@ -482,7 +482,7 @@
               ></el-button>
               <el-button
               class="btn"
-                :style="{'order':rowHandle.edit.sort}"
+                :style="{'order':rowHandle.edit.sort||100}"
                 v-if="rowHandle.edit && !rowHandle.edit.circle && handleRowHandleButtonShow(rowHandle.edit.show, scope.$index, scope.row)"
                 :disabled="handleRowHandleButtonDisabled(rowHandle.edit.disabled, scope.$index, scope.row)"
                 v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, rowHandle.edit) : rowHandle.edit"
@@ -492,7 +492,7 @@
             <template>
               <el-button
               class="btn"
-                :style="{'order':rowHandle.remove.sort}"
+                :style="{'order':rowHandle.remove.sort||100}"
                 v-if="rowHandle.remove && rowHandle.remove.circle && handleRowHandleButtonShow(rowHandle.remove.show, scope.$index, scope.row)"
                 :type="handleAttribute(rowHandle.remove.type, 'danger')"
                 :disabled="handleRowHandleButtonDisabled(rowHandle.remove.disabled, scope.$index, scope.row)"
@@ -501,7 +501,7 @@
               ></el-button>
               <el-button
               class="btn"
-                :style="{'order':rowHandle.remove.sort}"
+                :style="{'order':rowHandle.remove.sort||100}"
                 v-if="rowHandle.remove && !rowHandle.remove.circle && handleRowHandleButtonShow(rowHandle.remove.show, scope.$index, scope.row)"
                 :type="handleAttribute(rowHandle.remove.type, 'danger')"
                 :disabled="handleRowHandleButtonDisabled(rowHandle.remove.disabled, scope.$index, scope.row)"
@@ -512,7 +512,7 @@
             <template>
               <el-button
               class="btn"
-                :style="{'order':rowHandle.look.sort}"
+                :style="{'order':rowHandle.look.sort||100}"
                 v-if="rowHandle.look && rowHandle.look.circle && handleRowHandleButtonShow(rowHandle.look.show, scope.$index, scope.row)"
                 :type="handleAttribute(rowHandle.look.type, '')"
                 :disabled="handleRowHandleButtonDisabled(rowHandle.look.disabled, scope.$index, scope.row)"
@@ -521,7 +521,7 @@
               ></el-button>
               <el-button
               class="btn"
-                :style="{'order':rowHandle.look.sort}"
+                :style="{'order':rowHandle.look.sort||100}"
                 v-if="rowHandle.look && !rowHandle.look.circle && handleRowHandleButtonShow(rowHandle.look.show, scope.$index, scope.row)"
                 :type="handleAttribute(rowHandle.look.type, '')"
                 :disabled="handleRowHandleButtonDisabled(rowHandle.look.disabled, scope.$index, scope.row)"
@@ -533,6 +533,7 @@
             <template>
               <el-button
               class="btn"
+              :style="{'order':rowHandle.lookNoEle.sort||100}"
                 v-if="rowHandle.lookNoEle && rowHandle.lookNoEle.circle && handleRowHandleButtonShow(rowHandle.lookNoEle.show, scope.$index, scope.row)"
                 :type="handleAttribute(rowHandle.lookNoEle.type, '')"
                 :disabled="handleRowHandleButtonDisabled(rowHandle.lookNoEle.disabled, scope.$index, scope.row)"
@@ -541,6 +542,7 @@
               ></el-button>
               <el-button
               class="btn"
+              :style="{'order':rowHandle.lookNoEle.sort||100}"
                 v-if="rowHandle.lookNoEle && !rowHandle.lookNoEle.circle && handleRowHandleButtonShow(rowHandle.lookNoEle.show, scope.$index, scope.row)"
                 :type="handleAttribute(rowHandle.lookNoEle.type, '')"
                 :disabled="handleRowHandleButtonDisabled(rowHandle.lookNoEle.disabled, scope.$index, scope.row)"
@@ -553,7 +555,7 @@
                 <el-button
                 class="btn"
                   :key="item.text"
-                  :style="{'order':item.sort}"
+                  :style="{'order':item.sort||100}"
                   v-if="item.circle && handleRowHandleButtonShow(item.show, scope.$index, scope.row)"
                   :disabled="handleRowHandleButtonDisabled(item.disabled, scope.$index, scope.row)"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item) : item"
