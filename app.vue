@@ -1,13 +1,14 @@
 <!--
  * @Date: 2020-06-09 14:07:21
  * @LastEditors: songlin
- * @LastEditTime: 2020-06-18 15:52:28
+ * @LastEditTime: 2020-06-18 19:32:23
  * @FilePath: \d2-crud\app.vue
 -->
 <template>
   <div id="app">
     <d2-crud
       ref="d2Crud"
+      add-width="400px"
       :columns="columns"
       :data="data"
       :rowHandle="rowHandle"
@@ -50,6 +51,7 @@ export default {
           },],
       formOptions: {
         // lookNoEleLabelWidth: 100
+
       },
       show: "",
       rules: {

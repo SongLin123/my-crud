@@ -25,6 +25,20 @@ export default {
       default: '编辑'
     },
     /**
+     * @description dialog新增
+     */
+    addWidth: {
+      type: String,
+      default: '添加'
+    },
+    /**
+     * @description dialog修改
+     */
+    editWidth: {
+      type: String,
+      default: '编辑'
+    },
+    /**
  * @description dialog查看标题
  */
     lookTitle: {

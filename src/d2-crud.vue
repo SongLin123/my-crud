@@ -591,6 +591,7 @@
     <el-dialog
       v-if="isDialogShow"
       :title="(formMode === 'edit' && editTitle)||(formMode === 'add' && addTitle)||((formMode === 'look' || formMode === 'lookNoEle') && lookTitle)"
+      :width="(formMode === 'edit' && editWidth)||(formMode === 'add' && addWidth)||((formMode === 'look' || formMode === 'lookNoEle') && lookWidth)"
       :visible.sync="isDialogShow"
       :before-close="handleDialogCancel"
       v-bind="formOptions"
@@ -801,6 +802,13 @@
         </el-row>
       </el-form>
       <div slot="footer">
+        <el-button
+          :size="formOptions ? handleAttribute(formOptions.cancelButtonSize, null) : null"
+          :type="formOptions ? handleAttribute(formOptions.cancelButtonType, null) : null"
+          :icon="formOptions ? handleAttribute(formOptions.cancelButtonIcon, null) : null"
+          :loading="formOptions ? handleAttribute(formOptions.cancelLoading, false) : false"
+          @click="isDialogShow=false"
+        >{{formOptions ? handleAttribute(formOptions.cancelButtonText, '取消') : '取消'}}</el-button>
         <el-button
           :size="formOptions ? handleAttribute(formOptions.saveButtonSize, null) : null"
           :type="formOptions ? handleAttribute(formOptions.saveButtonType, null) : null"
