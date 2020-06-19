@@ -1,7 +1,7 @@
 {
   "name": "my-element-crud",
   "description": "d2-crud extend",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "author": "songlin",
   "license": "MIT",
   "private": false,
