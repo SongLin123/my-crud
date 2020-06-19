@@ -801,7 +801,7 @@
           </template>
         </el-row>
       </el-form>
-      <div slot="footer">
+      <div slot="footer" v-if="formMode !== 'look'||formMode !== 'lookNoEle'">
         <el-button
           :size="formOptions ? handleAttribute(formOptions.cancelButtonSize, null) : null"
           :type="formOptions ? handleAttribute(formOptions.cancelButtonType, null) : null"
