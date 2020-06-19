@@ -1,0 +1,2175 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Business项目开发SWAGGER_2接口文档",
+        "version": "v1.0",
+        "title": "Business项目开发SWAGGER_2接口文档",
+        "termsOfService": "NO terms of service",
+        "license": {
+            "name": "The Apache License, Version 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "host": "101.133.228.235",
+    "basePath": "/bussisnis",
+    "tags": [
+        {
+            "name": "设备管理",
+            "description": "Device Controller"
+        },
+        {
+            "name": "人员管理",
+            "description": "Person Controller"
+        },
+        {
+            "name": "人员组管理",
+            "description": "Person Group Controller"
+        },
+        {
+            "name": "设备组管理",
+            "description": "Device Group Controller"
+        }
+    ],
+    "paths": {
+        "/device/addDevice": {
+            "post": {
+                "tags": [
+                    "设备管理"
+                ],
+                "summary": "新增设备",
+                "operationId": "addDevice",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "deviceAddReq",
+                        "description": "deviceAddReq",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/DeviceAddReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/device/changeDeviceStatus": {
+            "put": {
+                "tags": [
+                    "设备管理"
+                ],
+                "summary": "修改设备状态",
+                "operationId": "changeDeviceStatus",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "statusReq",
+                        "description": "statusReq",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/DeviceStatusReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/device/deleteDevice/{deviceId}": {
+            "delete": {
+                "tags": [
+                    "设备管理"
+                ],
+                "summary": "删除设备",
+                "operationId": "deleteDevice",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "deviceId",
+                        "in": "path",
+                        "description": "deviceId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes"
+                        }
+                    },
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/device/deleteDeviceBatch": {
+            "post": {
+                "tags": [
+                    "设备管理"
+                ],
+                "summary": "批量删除设备",
+                "operationId": "deleteDeviceBatch",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "ids",
+                        "description": "ids",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/device/getCheckInDevice": {
+            "get": {
+                "tags": [
+                    "设备管理"
+                ],
+                "summary": "获取考勤设备列表",
+                "operationId": "getCheckInDevice",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes«List«考勤设备查询res»»"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/device/getDeviceDetail/{deviceId}": {
+            "get": {
+                "tags": [
+                    "设备管理"
+                ],
+                "summary": "获取设备详情",
+                "operationId": "getDeviceDetail",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "deviceId",
+                        "in": "path",
+                        "description": "deviceId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes«设备详情返回»"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/device/getDeviceList": {
+            "post": {
+                "tags": [
+                    "设备管理"
+                ],
+                "summary": "查询设备列表",
+                "operationId": "getDeviceList",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "deviceQueryReq",
+                        "description": "deviceQueryReq",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/设备查询req"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/PageRes«List«设备查询res»»"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/device/getNebulaList": {
+            "post": {
+                "tags": [
+                    "设备管理"
+                ],
+                "summary": "获取nebula列表",
+                "operationId": "getNebulaList",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes«List«nebula查询res»»"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/device/moveDevice": {
+            "put": {
+                "tags": [
+                    "设备管理"
+                ],
+                "summary": "移动设备",
+                "operationId": "moveDevice",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "deviceMoveReq",
+                        "description": "deviceMoveReq",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/设备移动req"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/device/updateDevice": {
+            "put": {
+                "tags": [
+                    "设备管理"
+                ],
+                "summary": "编辑设备",
+                "operationId": "updateDevice",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "deviceUpdateReq",
+                        "description": "deviceUpdateReq",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/设备修改req"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/deviceGroup/addGroup": {
+            "post": {
+                "tags": [
+                    "设备组管理"
+                ],
+                "summary": "添加设备组",
+                "operationId": "addGroup",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "deviceGroup",
+                        "description": "deviceGroup",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/设备组添加req"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/deviceGroup/deleteDeviceGroup/{groupId}": {
+            "delete": {
+                "tags": [
+                    "设备组管理"
+                ],
+                "summary": "删除设备组",
+                "operationId": "deleteDeviceGroup",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "groupId",
+                        "in": "path",
+                        "description": "groupId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes"
+                        }
+                    },
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/deviceGroup/getDeviceGroupDetail/{groupId}": {
+            "get": {
+                "tags": [
+                    "设备组管理"
+                ],
+                "summary": "查询设备组详情",
+                "operationId": "getDeviceGroupDetail",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "groupId",
+                        "in": "path",
+                        "description": "groupId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes«设备组详情res»"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/deviceGroup/getGroup": {
+            "get": {
+                "tags": [
+                    "设备组管理"
+                ],
+                "summary": "查询设备组列表(一次加载全部)",
+                "operationId": "getGroupTree",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes«List«设备组返回»»"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/deviceGroup/getNextNodeGroup/{parentId}": {
+            "get": {
+                "tags": [
+                    "设备组管理"
+                ],
+                "summary": "查询设备组列表(仅加载一层)",
+                "operationId": "getNextNodeGroup",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "parentId",
+                        "in": "path",
+                        "description": "parentId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes«设备组子节点res»"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/deviceGroup/updateGroup": {
+            "put": {
+                "tags": [
+                    "设备组管理"
+                ],
+                "summary": "修改设备组",
+                "operationId": "updateGroup",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "deviceGroupUpdateReq",
+                        "description": "deviceGroupUpdateReq",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/设备组修改req"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/person/addPerson": {
+            "post": {
+                "tags": [
+                    "人员管理"
+                ],
+                "summary": "添加人员",
+                "operationId": "addPerson",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "addReq",
+                        "description": "addReq",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/PersonAddReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/person/deletePerson/{personId}": {
+            "delete": {
+                "tags": [
+                    "人员管理"
+                ],
+                "summary": "删除人员",
+                "operationId": "deletePerson",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "personId",
+                        "in": "path",
+                        "description": "personId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes"
+                        }
+                    },
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/person/getGroupPersonId": {
+            "post": {
+                "tags": [
+                    "人员管理"
+                ],
+                "summary": "查询组内人员id",
+                "operationId": "getGroupPersonId",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "groupIds",
+                        "description": "groupIds",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes«Set«string»»"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/person/getPerson": {
+            "post": {
+                "tags": [
+                    "人员管理"
+                ],
+                "summary": "查询人员",
+                "operationId": "getPerson",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "queryReq",
+                        "description": "queryReq",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/人员查询req"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/PageRes«List«人员查询res»»"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/person/getPersonDetail/{personId}": {
+            "get": {
+                "tags": [
+                    "人员管理"
+                ],
+                "summary": "查询人员详情",
+                "operationId": "getPersonDetail",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "personId",
+                        "in": "path",
+                        "description": "personId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes«人员查询res»"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/person/getPersonGroup/{personId}": {
+            "get": {
+                "tags": [
+                    "人员管理"
+                ],
+                "summary": "获取人员所在组",
+                "operationId": "getPersonGroup",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "personId",
+                        "in": "path",
+                        "description": "personId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes«List«人员组查询res»»"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/person/getPersonIdInGroup/{personId}": {
+            "get": {
+                "tags": [
+                    "人员管理"
+                ],
+                "summary": "查询本人所在组内人员id列表",
+                "operationId": "getPersonIdInGroup",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "personId",
+                        "in": "path",
+                        "description": "personId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes«Set«string»»"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/person/updatePerson": {
+            "put": {
+                "tags": [
+                    "人员管理"
+                ],
+                "summary": "修改人员",
+                "operationId": "updatePerson",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "updateReq",
+                        "description": "updateReq",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/人员添加req"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/personGroup/addPersonGroup": {
+            "post": {
+                "tags": [
+                    "人员组管理"
+                ],
+                "summary": "添加人员组",
+                "operationId": "addPersonGroup",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "addReq",
+                        "description": "addReq",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/人员组添加req"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/personGroup/deletePersonGroup/{groupId}": {
+            "delete": {
+                "tags": [
+                    "人员组管理"
+                ],
+                "summary": "删除人员组",
+                "operationId": "deletePersonGroup",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "groupId",
+                        "in": "path",
+                        "description": "groupId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes"
+                        }
+                    },
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/personGroup/getChildPersonGroup/{parentId}": {
+            "get": {
+                "tags": [
+                    "人员组管理"
+                ],
+                "summary": "查询人员组(加载一层)",
+                "operationId": "getChildPersonGroup",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "parentId",
+                        "in": "path",
+                        "description": "parentId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes«List«人员组查询res»»"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/personGroup/getPersonGroup": {
+            "get": {
+                "tags": [
+                    "人员组管理"
+                ],
+                "summary": "查询人员组(加载全部子节点)",
+                "operationId": "getPersonGroup_1",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes«List«人员组查询res»»"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/personGroup/updatePersonGroup": {
+            "put": {
+                "tags": [
+                    "人员组管理"
+                ],
+                "summary": "修改人员组",
+                "operationId": "updatePersonGroup",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "updateReq",
+                        "description": "updateReq",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/人员组修改req"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ResultRes"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "DeviceAddReq": {
+            "type": "object",
+            "properties": {
+                "accessFlag": {
+                    "type": "string",
+                    "description": "进出标识"
+                },
+                "belongToNebula": {
+                    "type": "string",
+                    "description": "所属nebula"
+                },
+                "describ": {
+                    "type": "string",
+                    "description": "设备描述"
+                },
+                "deviceName": {
+                    "type": "string",
+                    "description": "设备名称"
+                },
+                "deviceType": {
+                    "type": "string",
+                    "description": "设备类型"
+                },
+                "groupUuid": {
+                    "type": "string",
+                    "description": "设备组id"
+                },
+                "ipAddress": {
+                    "type": "string",
+                    "description": "设备ip"
+                },
+                "password": {
+                    "type": "string",
+                    "description": "nebula密码"
+                },
+                "port": {
+                    "type": "string",
+                    "description": "设备port"
+                },
+                "serialNum": {
+                    "type": "string",
+                    "description": "序列号"
+                },
+                "url": {
+                    "type": "string",
+                    "description": "设备url"
+                },
+                "username": {
+                    "type": "string",
+                    "description": "nebula用户名"
+                }
+            }
+        },
+        "DeviceStatusReq": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "PageRes«List«人员查询res»»": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "example": "0000",
+                    "description": "输出编码，如：0000"
+                },
+                "data": {
+                    "type": "array",
+                    "description": "输出对象(Object)",
+                    "items": {
+                        "$ref": "#/definitions/人员查询res"
+                    }
+                },
+                "msg": {
+                    "type": "string",
+                    "example": "操作成功",
+                    "description": "输出消息(String)"
+                },
+                "pages": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 10,
+                    "description": "总页数"
+                },
+                "size": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 10,
+                    "description": "页数量"
+                },
+                "success": {
+                    "type": "boolean"
+                },
+                "total": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 100,
+                    "description": "总条数"
+                }
+            }
+        },
+        "PageRes«List«设备查询res»»": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "example": "0000",
+                    "description": "输出编码，如：0000"
+                },
+                "data": {
+                    "type": "array",
+                    "description": "输出对象(Object)",
+                    "items": {
+                        "$ref": "#/definitions/设备查询res"
+                    }
+                },
+                "msg": {
+                    "type": "string",
+                    "example": "操作成功",
+                    "description": "输出消息(String)"
+                },
+                "pages": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 10,
+                    "description": "总页数"
+                },
+                "size": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 10,
+                    "description": "页数量"
+                },
+                "success": {
+                    "type": "boolean"
+                },
+                "total": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 100,
+                    "description": "总条数"
+                }
+            }
+        },
+        "PersonAddReq": {
+            "type": "object",
+            "properties": {
+                "groupId": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "imageUrl": {
+                    "type": "string"
+                },
+                "personName": {
+                    "type": "string"
+                },
+                "personSex": {
+                    "type": "string"
+                },
+                "personTel": {
+                    "type": "string"
+                },
+                "personType": {
+                    "type": "string"
+                },
+                "remark": {
+                    "type": "string"
+                }
+            }
+        },
+        "ResultRes": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "example": "0000",
+                    "description": "输出编码，如：0000"
+                },
+                "data": {
+                    "type": "object",
+                    "description": "输出对象(Object)"
+                },
+                "msg": {
+                    "type": "string",
+                    "example": "操作成功",
+                    "description": "输出消息(String)"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "ResultRes«List«nebula查询res»»": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "example": "0000",
+                    "description": "输出编码，如：0000"
+                },
+                "data": {
+                    "type": "array",
+                    "description": "输出对象(Object)",
+                    "items": {
+                        "$ref": "#/definitions/nebula查询res"
+                    }
+                },
+                "msg": {
+                    "type": "string",
+                    "example": "操作成功",
+                    "description": "输出消息(String)"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "ResultRes«List«人员组查询res»»": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "example": "0000",
+                    "description": "输出编码，如：0000"
+                },
+                "data": {
+                    "type": "array",
+                    "description": "输出对象(Object)",
+                    "items": {
+                        "$ref": "#/definitions/人员组查询res"
+                    }
+                },
+                "msg": {
+                    "type": "string",
+                    "example": "操作成功",
+                    "description": "输出消息(String)"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "ResultRes«List«考勤设备查询res»»": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "example": "0000",
+                    "description": "输出编码，如：0000"
+                },
+                "data": {
+                    "type": "array",
+                    "description": "输出对象(Object)",
+                    "items": {
+                        "$ref": "#/definitions/考勤设备查询res"
+                    }
+                },
+                "msg": {
+                    "type": "string",
+                    "example": "操作成功",
+                    "description": "输出消息(String)"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "ResultRes«List«设备组返回»»": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "example": "0000",
+                    "description": "输出编码，如：0000"
+                },
+                "data": {
+                    "type": "array",
+                    "description": "输出对象(Object)",
+                    "items": {
+                        "$ref": "#/definitions/设备组返回"
+                    }
+                },
+                "msg": {
+                    "type": "string",
+                    "example": "操作成功",
+                    "description": "输出消息(String)"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "ResultRes«Set«string»»": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "example": "0000",
+                    "description": "输出编码，如：0000"
+                },
+                "data": {
+                    "type": "array",
+                    "description": "输出对象(Object)",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "msg": {
+                    "type": "string",
+                    "example": "操作成功",
+                    "description": "输出消息(String)"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "ResultRes«人员查询res»": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "example": "0000",
+                    "description": "输出编码，如：0000"
+                },
+                "data": {
+                    "description": "输出对象(Object)",
+                    "$ref": "#/definitions/人员查询res"
+                },
+                "msg": {
+                    "type": "string",
+                    "example": "操作成功",
+                    "description": "输出消息(String)"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "ResultRes«设备组子节点res»": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "example": "0000",
+                    "description": "输出编码，如：0000"
+                },
+                "data": {
+                    "description": "输出对象(Object)",
+                    "$ref": "#/definitions/设备组子节点res"
+                },
+                "msg": {
+                    "type": "string",
+                    "example": "操作成功",
+                    "description": "输出消息(String)"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "ResultRes«设备组详情res»": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "example": "0000",
+                    "description": "输出编码，如：0000"
+                },
+                "data": {
+                    "description": "输出对象(Object)",
+                    "$ref": "#/definitions/设备组详情res"
+                },
+                "msg": {
+                    "type": "string",
+                    "example": "操作成功",
+                    "description": "输出消息(String)"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "ResultRes«设备详情返回»": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "example": "0000",
+                    "description": "输出编码，如：0000"
+                },
+                "data": {
+                    "description": "输出对象(Object)",
+                    "$ref": "#/definitions/设备详情返回"
+                },
+                "msg": {
+                    "type": "string",
+                    "example": "操作成功",
+                    "description": "输出消息(String)"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "nebula查询res": {
+            "type": "object",
+            "properties": {
+                "deviceName": {
+                    "type": "string",
+                    "description": "边缘节点盒子名称"
+                },
+                "uuid": {
+                    "type": "string",
+                    "description": "边缘节点盒子uuid"
+                }
+            }
+        },
+        "人员查询req": {
+            "type": "object",
+            "properties": {
+                "groupId": {
+                    "type": "string",
+                    "description": "组id"
+                },
+                "pageNum": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "页号,默认为1"
+                },
+                "pageSize": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "页码,默认为10"
+                },
+                "personName": {
+                    "type": "string",
+                    "description": "(筛选条件)名称"
+                },
+                "personTel": {
+                    "type": "string",
+                    "description": "手机号"
+                },
+                "personType": {
+                    "type": "string",
+                    "description": "工种"
+                }
+            }
+        },
+        "人员查询res": {
+            "type": "object",
+            "properties": {
+                "certificateNum": {
+                    "type": "string"
+                },
+                "certificateType": {
+                    "type": "string"
+                },
+                "groups": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "imageUrl": {
+                    "type": "string"
+                },
+                "personAge": {
+                    "type": "string"
+                },
+                "personName": {
+                    "type": "string"
+                },
+                "personSex": {
+                    "type": "string"
+                },
+                "personTel": {
+                    "type": "string"
+                },
+                "personType": {
+                    "type": "string"
+                },
+                "remark": {
+                    "type": "string"
+                },
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "人员添加req": {
+            "type": "object",
+            "properties": {
+                "imageUrl": {
+                    "type": "string"
+                },
+                "personName": {
+                    "type": "string"
+                },
+                "personSex": {
+                    "type": "string"
+                },
+                "personTel": {
+                    "type": "string"
+                },
+                "personType": {
+                    "type": "string"
+                },
+                "remark": {
+                    "type": "string"
+                },
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "人员组修改req": {
+            "type": "object",
+            "properties": {
+                "groupName": {
+                    "type": "string",
+                    "description": "组名称"
+                },
+                "uuid": {
+                    "type": "string",
+                    "description": "uuid"
+                }
+            }
+        },
+        "人员组查询res": {
+            "type": "object",
+            "properties": {
+                "children": {
+                    "type": "array",
+                    "description": "子节点",
+                    "items": {
+                        "$ref": "#/definitions/人员组查询res"
+                    }
+                },
+                "groupName": {
+                    "type": "string",
+                    "description": "组名"
+                },
+                "groupType": {
+                    "type": "string",
+                    "description": "组类型"
+                },
+                "parentId": {
+                    "type": "string",
+                    "description": "父级id"
+                },
+                "uuid": {
+                    "type": "string",
+                    "description": "组id"
+                }
+            }
+        },
+        "人员组添加req": {
+            "type": "object",
+            "properties": {
+                "groupName": {
+                    "type": "string",
+                    "description": "组名称"
+                },
+                "parentId": {
+                    "type": "string",
+                    "description": "父级id(根节点parentId为-1)"
+                }
+            }
+        },
+        "考勤设备查询res": {
+            "type": "object",
+            "properties": {
+                "deviceName": {
+                    "type": "string",
+                    "description": "设备名称"
+                },
+                "uuid": {
+                    "type": "string",
+                    "description": "设备uuid"
+                }
+            }
+        },
+        "设备修改req": {
+            "type": "object",
+            "properties": {
+                "accessFlag": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "进出标识"
+                },
+                "belongToNebula": {
+                    "type": "string",
+                    "description": "所属nebula"
+                },
+                "describ": {
+                    "type": "string",
+                    "description": "设备描述"
+                },
+                "deviceName": {
+                    "type": "string",
+                    "description": "设备名称"
+                },
+                "deviceType": {
+                    "type": "string",
+                    "description": "设备类型"
+                },
+                "ipAddress": {
+                    "type": "string",
+                    "description": "设备ip"
+                },
+                "password": {
+                    "type": "string",
+                    "description": "nebula密码"
+                },
+                "port": {
+                    "type": "string",
+                    "description": "设备port"
+                },
+                "status": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "设备状态"
+                },
+                "url": {
+                    "type": "string",
+                    "description": "设备url"
+                },
+                "username": {
+                    "type": "string",
+                    "description": "nebula用户名"
+                },
+                "uuid": {
+                    "type": "string",
+                    "description": "uuid"
+                }
+            }
+        },
+        "设备查询req": {
+            "type": "object",
+            "properties": {
+                "deviceType": {
+                    "type": "string",
+                    "description": "设备类型"
+                },
+                "groupId": {
+                    "type": "string",
+                    "description": "设备组id"
+                },
+                "nameOrIp": {
+                    "type": "string",
+                    "description": "设备名称或IP地址"
+                },
+                "pageNum": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "页号,默认为1"
+                },
+                "pageSize": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "页码,默认为10"
+                },
+                "status": {
+                    "type": "string",
+                    "description": "设备状态(0:在线、1:离线)"
+                }
+            }
+        },
+        "设备查询res": {
+            "type": "object",
+            "properties": {
+                "accessFlag": {
+                    "type": "string",
+                    "description": "进出标识（0：进  1：出）"
+                },
+                "belongToNebula": {
+                    "type": "string",
+                    "description": "所属nebula"
+                },
+                "describ": {
+                    "type": "string",
+                    "description": "设备描述"
+                },
+                "deviceName": {
+                    "type": "string",
+                    "description": "设备名称"
+                },
+                "deviceType": {
+                    "type": "string",
+                    "description": "设备类型"
+                },
+                "groupName": {
+                    "type": "string",
+                    "description": "组名"
+                },
+                "ipAddress": {
+                    "type": "string",
+                    "description": "设备ip"
+                },
+                "password": {
+                    "type": "string",
+                    "description": "nebula密码"
+                },
+                "port": {
+                    "type": "string",
+                    "description": "port"
+                },
+                "status": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "设备状态(0:在线、1:离线)"
+                },
+                "url": {
+                    "type": "string",
+                    "description": "url"
+                },
+                "username": {
+                    "type": "string",
+                    "description": "nebula用户名"
+                },
+                "uuid": {
+                    "type": "string",
+                    "description": "设备uuid"
+                }
+            }
+        },
+        "设备移动req": {
+            "type": "object",
+            "properties": {
+                "deviceUuid": {
+                    "type": "string",
+                    "description": "设备id"
+                },
+                "groupId": {
+                    "type": "string",
+                    "description": "设备组id"
+                }
+            }
+        },
+        "设备组res": {
+            "type": "object",
+            "properties": {
+                "groupName": {
+                    "type": "string",
+                    "description": "组名称"
+                },
+                "parentId": {
+                    "type": "string",
+                    "description": "父级uuid,根目录为：-1"
+                }
+            }
+        },
+        "设备组修改req": {
+            "type": "object",
+            "properties": {
+                "groupName": {
+                    "type": "string",
+                    "description": "组名称"
+                },
+                "uuid": {
+                    "type": "string",
+                    "description": "要修改设备组的uuid"
+                }
+            }
+        },
+        "设备组子节点res": {
+            "type": "object",
+            "properties": {
+                "groupResList": {
+                    "type": "array",
+                    "description": "设备组列表",
+                    "items": {
+                        "$ref": "#/definitions/设备组res"
+                    }
+                }
+            }
+        },
+        "设备组添加req": {
+            "type": "object",
+            "properties": {
+                "groupName": {
+                    "type": "string",
+                    "description": "组名称"
+                },
+                "parentId": {
+                    "type": "string",
+                    "description": "父级uuid,根目录为：-1"
+                }
+            }
+        },
+        "设备组详情res": {
+            "type": "object",
+            "properties": {
+                "externalUuid": {
+                    "type": "string",
+                    "description": "外部设备组uuid"
+                },
+                "groupName": {
+                    "type": "string",
+                    "description": "组名称"
+                },
+                "parentId": {
+                    "type": "string",
+                    "description": "父级id"
+                }
+            }
+        },
+        "设备组返回": {
+            "type": "object",
+            "properties": {
+                "externalUuid": {
+                    "type": "string",
+                    "description": "外部设备组uuid"
+                },
+                "groupName": {
+                    "type": "string",
+                    "description": "组名"
+                },
+                "parentId": {
+                    "type": "string",
+                    "description": "父级id"
+                },
+                "uuid": {
+                    "type": "string",
+                    "description": "uuid"
+                }
+            }
+        },
+        "设备详情返回": {
+            "type": "object",
+            "properties": {
+                "deployedState": {
+                    "type": "boolean",
+                    "example": false,
+                    "description": "是否已经部署在底图上(0:未部署 1:已部署)"
+                },
+                "describ": {
+                    "type": "string",
+                    "description": "describ"
+                },
+                "deviceName": {
+                    "type": "string",
+                    "description": "device_name"
+                },
+                "deviceType": {
+                    "type": "string",
+                    "description": "device_type"
+                },
+                "externalUuid": {
+                    "type": "string",
+                    "description": "external_uuid"
+                },
+                "groupName": {
+                    "type": "string",
+                    "description": "设备所在组名称"
+                },
+                "groupUuid": {
+                    "type": "string",
+                    "description": "group_uuid"
+                },
+                "ipAddress": {
+                    "type": "string",
+                    "description": "ip_address"
+                },
+                "joinType": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "join_type"
+                },
+                "port": {
+                    "type": "string",
+                    "description": "port"
+                },
+                "serialNum": {
+                    "type": "string",
+                    "description": "serial_num"
+                },
+                "spaceName": {
+                    "type": "string",
+                    "description": "设备部署空间名称"
+                },
+                "spaceUuid": {
+                    "type": "string",
+                    "description": "设备部署空间ID"
+                },
+                "status": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "status"
+                },
+                "url": {
+                    "type": "string",
+                    "description": "url"
+                }
+            }
+        }
+    }
+}

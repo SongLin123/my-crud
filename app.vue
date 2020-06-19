@@ -39,6 +39,7 @@ export default {
       formOptions: {
         // lookNoEleLabelWidth: 100
       },
+      order: 3,
       show: "",
       rules: {
         roleName: [
@@ -119,6 +120,7 @@ export default {
             }
           },
           mycom: {
+            order: this.order,
             title: "自定义选择框",
             value: "",
             _sort: 3,
@@ -162,6 +164,7 @@ export default {
       }
     }
   },
+
   methods: {
     handleEdit({ row }, done) {
       console.log(row);
@@ -177,6 +180,7 @@ export default {
       if (mode === "edit" || mode == "look") {
         if (row.mycom2 == 1) {
           this.show = 1;
+          this.order = 2;
         } else {
           this.show = 2;
         }
@@ -196,6 +200,7 @@ export default {
       if (key == "mycom2") {
         if (value == 1) {
           this.show = 1;
+          this.order = 2;
           console.log(this.addTemplate);
           // this.addTemplate = Object.assign(
           //   {},
@@ -215,6 +220,8 @@ export default {
       }
     }
   },
-  mounted() {}
+  mounted() {
+    console.log(this.addTemplate);
+  }
 };
 </script>
