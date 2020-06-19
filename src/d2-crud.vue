@@ -6,10 +6,7 @@
     :element-loading-spinner="loadingOptions ? handleAttribute(loadingOptions.spinner, null) : null"
     :element-loading-background="loadingOptions ? handleAttribute(loadingOptions.background, null) : null"
   >
-    <div
-      class="d2-crud-header"
-      v-if="$slots.header"
-    >
+    <div class="d2-crud-header" v-if="$slots.header">
       <slot name="header"></slot>
     </div>
     <div class="d2-crud-body">
@@ -179,7 +176,9 @@
               :render-function="item.component.render"
               :scope="scope"
             ></render-component>
-            <template v-else>{{item.formatter ? item.formatter(scope.row, scope.column, _get(scope.row, item.key), scope.$index) : _get(scope.row, item.key)}}</template>
+            <template
+              v-else
+            >{{item.formatter ? item.formatter(scope.row, scope.column, _get(scope.row, item.key), scope.$index) : _get(scope.row, item.key)}}</template>
           </template>
           <template v-if="item.children">
             <el-table-column
@@ -316,7 +315,9 @@
                   :render-function="item2.component.render"
                   :scope="scope"
                 ></render-component>
-                <template v-else>{{item2.formatter ? item2.formatter(scope.row, scope.column, _get(scope.row, item2.key), scope.$index) : _get(scope.row, item2.key)}}</template>
+                <template
+                  v-else
+                >{{item2.formatter ? item2.formatter(scope.row, scope.column, _get(scope.row, item2.key), scope.$index) : _get(scope.row, item2.key)}}</template>
               </template>
               <template v-if="item2.children">
                 <el-table-column
@@ -453,7 +454,9 @@
                       :render-function="item3.component.render"
                       :scope="scope"
                     ></render-component>
-                    <template v-else>{{item3.formatter ? item3.formatter(scope.row, scope.column, _get(scope.row, item3.key), scope.$index) : _get(scope.row, item3.key)}}</template>
+                    <template
+                      v-else
+                    >{{item3.formatter ? item3.formatter(scope.row, scope.column, _get(scope.row, item3.key), scope.$index) : _get(scope.row, item3.key)}}</template>
                   </template>
                   <!-- <d2-column v-if="item.children" :columns="item.children"></d2-column> -->
                 </el-table-column>
@@ -468,7 +471,7 @@
           v-if="rowHandle"
           :label="handleAttribute(rowHandle.columnHeader, '操作')"
           v-bind="rowHandle"
-          className="rowHandle"
+          class="rowHandle"
         >
           <template slot-scope="scope">
             <template>
@@ -553,7 +556,7 @@
             <template v-for="item in handleAttribute(rowHandle.custom, [])">
               <template>
                 <el-button
-                class="btn"
+                  class="btn"
                   :key="item.text"
                   :style="{'order':item.sort||100}"
                   v-if="item.circle && handleRowHandleButtonShow(item.show, scope.$index, scope.row)"
@@ -562,7 +565,7 @@
                   @click="$emit(item.emit, {index: scope.$index, row: scope.row})"
                 ></el-button>
                 <el-button
-                class="btn"
+                  class="btn"
                   :key="item.text"
                   :style="{'order':item.sort}"
                   v-if="!item.circle && handleRowHandleButtonShow(item.show, scope.$index, scope.row)"
@@ -576,10 +579,7 @@
         </el-table-column>
       </el-table>
     </div>
-    <div
-      class="d2-crud-pagination"
-      v-if="pagination"
-    >
+    <div class="d2-crud-pagination" v-if="pagination">
       <el-pagination
         v-bind="pagination"
         @size-change="handlePaginationSizeChange"
@@ -605,11 +605,9 @@
               :offset="handleFormTemplateMode(key).component ? handleAttribute(handleFormTemplateMode(key).component.offset, 0) : 0"
               :key="index"
               :class="[handleFormTemplateMode(key)._class]"
+              :style="{order:(handleFormTemplateMode(key).order?handleFormTemplateMode(key).order:1)}"
             >
-              <el-form-item
-                :label="handleFormTemplateMode(key).title"
-                :prop="key"
-              >
+              <el-form-item :label="handleFormTemplateMode(key).title" :prop="key">
                 <el-input
                   :ref="prefix(key)"
                   v-if="(!handleFormTemplateMode(key).component) ||((!handleFormTemplateMode(key).component.name) && (!handleFormTemplateMode(key).component.render)) || handleFormTemplateMode(key).component.name === 'el-input'"
@@ -822,78 +820,77 @@
 </template>
 
 <script>
-  import base from "./mixin/base";
-  import handleRow from "./mixin/handleRow";
-  import data from "./mixin/data";
-  import edit from "./mixin/edit";
-  import add from "./mixin/add";
-  import look from "./mixin/look";
-  import remove from "./mixin/remove";
-  import dialog from "./mixin/dialog";
-  import pagination from "./mixin/pagination";
-  import exposeMethods from "./mixin/exposeMethods.js";
-  import utils from "./mixin/utils";
-  import customEvent from "./mixin/customEvent";
-  import renderComponent from "./components/renderComponent.vue";
-  import renderCustomComponent from "./components/renderCustomComponent.vue";
-  import Vue from "vue";
-  // import d2Column from './components/d2-column.vue'
+import base from "./mixin/base";
+import handleRow from "./mixin/handleRow";
+import data from "./mixin/data";
+import edit from "./mixin/edit";
+import add from "./mixin/add";
+import look from "./mixin/look";
+import remove from "./mixin/remove";
+import dialog from "./mixin/dialog";
+import pagination from "./mixin/pagination";
+import exposeMethods from "./mixin/exposeMethods.js";
+import utils from "./mixin/utils";
+import customEvent from "./mixin/customEvent";
+import renderComponent from "./components/renderComponent.vue";
+import renderCustomComponent from "./components/renderCustomComponent.vue";
+import Vue from "vue";
+// import d2Column from './components/d2-column.vue'
 
-  export default {
-    name: "d2-crud",
-    mixins: [
-      base,
-      data,
-      handleRow,
-      edit,
-      add,
-      look,
-      remove,
-      dialog,
-      pagination,
-      exposeMethods,
-      utils,
-      customEvent
-    ],
-    components: {
-      renderComponent,
-      renderCustomComponent
-      // d2Column
-    },
-    methods:{
-      prefix(name){
-        return 'com-'+name
-      }
+export default {
+  name: "d2-crud",
+  mixins: [
+    base,
+    data,
+    handleRow,
+    edit,
+    add,
+    look,
+    remove,
+    dialog,
+    pagination,
+    exposeMethods,
+    utils,
+    customEvent
+  ],
+  components: {
+    renderComponent,
+    renderCustomComponent
+    // d2Column
+  },
+  methods: {
+    prefix(name) {
+      return "com-" + name;
     }
-  };
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-  .d2-crud {
-    .d2-crud-header {
-      border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
-    }
-
-    .d2-crud-body {
-      padding: 15px 0;
-      overflow: hidden;
-    }
-    .d2-crud-pagination {
-      padding: 15px 0;
-    }
+.d2-crud {
+  .d2-crud-header {
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
   }
+
+  .d2-crud-body {
+    padding: 15px 0;
+    overflow: hidden;
+  }
+  .d2-crud-pagination {
+    padding: 15px 0;
+  }
+}
 </style>
 <style lang="scss">
-  .rowHandle > .cell {
-    display: flex;
-    .btn {
-      margin-left: 10px !important;
-    }
+.rowHandle > .cell {
+  display: flex;
+  .btn {
+    margin-left: 10px !important;
   }
-  .look_n_content {
-    text-align: center;
-    font-size: 16px;
-    line-height: 35px;
-  }
-
+}
+.look_n_content {
+  text-align: center;
+  font-size: 16px;
+  line-height: 35px;
+}
 </style>
