@@ -79,25 +79,25 @@ rowHandle: {
 - 使用：
 ``` js
 rowHandle: {
-          minWidth: "180px",
-          look: {
-            text: "查看",
-            emit: "lookHandle",
-            sort: 3
-          },
-          customs: [{
-              text: '打卡记录',
-              emit: 'showRecord',
-              sort:2
-            }],
-          edit: {
-            text: "编辑",
-            emit: "editHandle",
-            type: "warning ",
-            sort: 1
-          },
+  minWidth: "180px",
+  look: {
+    text: "查看",
+    emit: "lookHandle",
+    sort: 3
+  },
+  customs: [{
+      text: '打卡记录',
+      emit: 'showRecord',
+      sort:2
+    }],
+  edit: {
+    text: "编辑",
+    emit: "editHandle",
+    type: "warning ",
+    sort: 1
+  },
 
-          }
+  }
 ```
 
 
@@ -164,6 +164,10 @@ addTemplate值需要放在计算属性中
     }
   },
 ```
+
+设置表单dialog的宽度
+:add-width="400px"
+:edit-width="400px"
 
 =======
 - 添加表单中自定义组件事件
