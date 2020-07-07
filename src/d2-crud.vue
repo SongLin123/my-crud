@@ -471,7 +471,7 @@
           v-if="rowHandle"
           :label="handleAttribute(rowHandle.columnHeader, '操作')"
           v-bind="rowHandle"
-          class="rowHandle"
+          class-name="rowHandle"
         >
           <template slot-scope="scope">
             <template>
