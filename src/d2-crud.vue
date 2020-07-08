@@ -51,7 +51,13 @@
         >
           <template slot-scope="scope">
             <el-input
-              v-if="item.component && item.component.name === 'el-input'"
+              v-if="item.component && item.component.name === 'el-input'&&item.component.trim"
+              v-model.trim="scope.row[item.key]"
+              v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
+              @change="$emit('cell-data-change', {rowIndex: scope.$index, key: item.key, value: scope.row[item.key], row: scope.row})"
+            ></el-input>
+             <el-input
+              v-if="item.component && item.component.name === 'el-input'&&!item.component.trim"
               v-model="scope.row[item.key]"
               v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
               @change="$emit('cell-data-change', {rowIndex: scope.$index, key: item.key, value: scope.row[item.key], row: scope.row})"
@@ -610,7 +616,17 @@
               <el-form-item :label="handleFormTemplateMode(key).title" :prop="key">
                 <el-input
                   :ref="prefix(key)"
-                  v-if="(!handleFormTemplateMode(key).component) ||((!handleFormTemplateMode(key).component.name) && (!handleFormTemplateMode(key).component.render)) || handleFormTemplateMode(key).component.name === 'el-input'"
+                  v-if="(!handleFormTemplateMode(key).component) ||((!handleFormTemplateMode(key).component.name) && (!handleFormTemplateMode(key).component.render)&&handleFormTemplateMode(key).component.trim) || handleFormTemplateMode(key).component.name === 'el-input'
+                  "
+                  v-model.trim="formData[key]"
+                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
+                  :disabled="formMode === 'look'?true:handleFormTemplateMode(key).component.disabled"
+                  @change="$emit('form-data-change', {key: key, value: value})"
+                ></el-input>
+                <el-input
+                  :ref="prefix(key)"
+                  v-if="(!handleFormTemplateMode(key).component) ||((!handleFormTemplateMode(key).component.name) && (!handleFormTemplateMode(key).component.render)&&(!handleFormTemplateMode(key).component.trim))  || handleFormTemplateMode(key).component.name === 'el-input'
+                  "
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
                   :disabled="formMode === 'look'?true:handleFormTemplateMode(key).component.disabled"
