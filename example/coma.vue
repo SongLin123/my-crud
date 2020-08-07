@@ -1,8 +1,8 @@
 <!--
  * @Date: 2020-06-10 15:35:37
  * @LastEditors: songlin
- * @LastEditTime: 2020-06-10 17:35:21
- * @FilePath: \d2-crud\coma.vue
+ * @LastEditTime: 2020-08-07 15:49:13
+ * @FilePath: \my-crud\example\coma.vue
 -->
 <template>
   <div>
@@ -13,7 +13,7 @@
   export default {
     methods: {
       up() {
-        this.$emit("customEmit", 123);
+        this.$emit("componentEvent", 123);
       }
     }
   };

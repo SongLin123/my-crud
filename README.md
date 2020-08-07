@@ -56,6 +56,33 @@ https://cdn.d2.pub/packages/@d2-projects/d2-crud@2.0.5/d2-crud.js
 
 
 ## 补丁修改
+
+- 增加 addtemplate \ edittemplate 中事件和属性绑定至element组件功能
+- @ 前缀为组件事件
+- : 前缀为组件属性
+
+``` js
+mycom2: {
+            title: "自带选择框",
+            value: "",
+            _sort: 4,
+            component: {
+              name: "el-select",
+              options: [
+                { label: "测试1", value: 1 },
+                { label: "测试2", value: 2 },
+              ],
+              // 事件绑定
+              '@change': (e) => {
+                console.log(this.rowHandle);
+              },
+              // 属性绑定
+              ':size':'mini'
+            },
+          },
+```
+
+
 - 解决自带选择框 form-data-change 事件无法正确传递到父组件的问题
 - 增加自定义查看按钮
 - 增加查看功能，查看时元素默认disabled
@@ -170,8 +197,43 @@ addTemplate值需要放在计算属性中
 :edit-width="400px"
 
 =======
-- 添加表单中自定义组件事件
+- 添加表单中自定义组件互相调用
+- 自定义组件中使用$emit('componentEvent')，向父组件发送事件，父组件使用 @componentEvent:#{自定义组件key}="handle" 接收
+- 父组件使用 $refs.d2Crud.getRef("#{自定义组件key}").handleComponentEvent(data) 派发函数
 -使用：
+> 父组件
+``` html
+<d2-crud
+@componentEvent:coma="handle">
+</d2-crud>
+```
+``` js
+computed:{
+  addTemplate(){
+    return {
+      coma: {
+
+            title: "自定义选择框a",
+            value: "",
+            component: {
+              name: coma,
+
+              },
+    },
+    comb: {
+            title: "自定义选择框b",
+            value: "",
+            component: {
+              name: comb,
+        },
+      },
+    }
+  },
+  method:{
+  handle(data) {
+      this.$refs.d2Crud.getRef("comb").handleComponentEvent(data);
+    }}
+```
 > 组件A
 ```
 <template>
@@ -181,28 +243,18 @@ addTemplate值需要放在计算属性中
 </template>
 
       up() {
-        this.$emit("customEmit", 123);
+        this.$emit("componentEvent", 123);
       }
 
 ```
 > 组件B
 ``` js
   methods:{
-    handle(data){
+    handleComponentEvent(data){
       this.data=data
     }
   }
 ```
-> 父组件
-``` html
-<d2-crud
-@event:com-coma="handle">
-</d2-crud>
-```
-``` js
- handle(data) {
-    this.$refs.d2Crud.getRef("comb").handle(data);
-  },
-```
+
 
 

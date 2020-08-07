@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-06-09 14:07:21
  * @LastEditors: songlin
- * @LastEditTime: 2020-08-07 15:13:54
+ * @LastEditTime: 2020-08-07 15:43:58
  * @FilePath: \my-crud\example\app.vue
 -->
 <template>
@@ -169,8 +169,8 @@ export default {
                 { label: "测试1", value: 1 },
                 { label: "测试2", value: 2 },
               ],
-
-              change: (e) => {
+              ":size": "mini",
+              "@change": (e) => {
                 console.log(this.rowHandle);
               },
             },
