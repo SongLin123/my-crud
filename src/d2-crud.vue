@@ -677,7 +677,8 @@
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
                   :disabled="formMode === 'look'"
-                  @change="((val)=>{$emit('form-data-change', {key: key, value: val})})"
+
+                  v-on="Object.assign({ change: (val)=>{$emit('form-data-change', {key: key, value: val})}}, handleFormTemplateMode(key).component)"
                 >
                   <el-option
                     v-for="option in handleFormTemplateMode(key).component.options"
@@ -691,7 +692,7 @@
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
                   :disabled="formMode === 'look'"
-                  @change="$emit('form-data-change', {key: key, value: value})"
+                   v-on="Object.assign({ change: (val)=>{$emit('form-data-change', {key: key, value: val})}}, handleFormTemplateMode(key).component)"
                 ></el-cascader>
                 <el-switch
                   :ref="prefix(key)"
@@ -699,7 +700,7 @@
                   v-model="formData[key]"
                   v-bind="handleFormTemplateMode(key).component"
                   :disabled="formMode === 'look'"
-                  @change="$emit('form-data-change', {key: key, value: value})"
+                  v-on="Object.assign({ change: (val)=>{$emit('form-data-change', {key: key, value: val})}}, handleFormTemplateMode(key).component)"
                 ></el-switch>
                 <el-slider
                   :ref="prefix(key)"
@@ -707,7 +708,7 @@
                   v-model="formData[key]"
                   v-bind="handleFormTemplateMode(key).component"
                   :disabled="formMode === 'look'"
-                  @change="$emit('form-data-change', {key: key, value: value})"
+                   v-on="Object.assign({ change: (val)=>{$emit('form-data-change', {key: key, value: val})}}, handleFormTemplateMode(key).component)"
                 ></el-slider>
                 <el-time-select
                   :ref="prefix(key)"
@@ -715,7 +716,7 @@
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
                   :disabled="formMode === 'look'"
-                  @change="$emit('form-data-change', {key: key, value: value})"
+                   v-on="Object.assign({ change: (val)=>{$emit('form-data-change', {key: key, value: val})}}, handleFormTemplateMode(key).component)"
                 ></el-time-select>
                 <el-time-picker
                   :ref="prefix(key)"
@@ -723,7 +724,7 @@
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
                   :disabled="formMode === 'look'"
-                  @change="$emit('form-data-change', {key: key, value: value})"
+                   v-on="Object.assign({ change: (val)=>{$emit('form-data-change', {key: key, value: val})}}, handleFormTemplateMode(key).component)"
                 ></el-time-picker>
                 <el-date-picker
                   :ref="prefix(key)"
@@ -731,7 +732,7 @@
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
                   :disabled="formMode === 'look'"
-                  @change="$emit('form-data-change', {key: key, value: value})"
+                   v-on="Object.assign({ change: (val)=>{$emit('form-data-change', {key: key, value: val})}}, handleFormTemplateMode(key).component)"
                 ></el-date-picker>
                 <el-rate
                   :ref="prefix(key)"
@@ -739,7 +740,7 @@
                   v-model="formData[key]"
                   v-bind="handleFormTemplateMode(key).component"
                   :disabled="formMode === 'look'"
-                  @change="$emit('form-data-change', {key: key, value: value})"
+                   v-on="Object.assign({ change: (val)=>{$emit('form-data-change', {key: key, value: val})}}, handleFormTemplateMode(key).component)"
                 ></el-rate>
                 <el-color-picker
                   :ref="prefix(key)"
@@ -747,7 +748,7 @@
                   v-model="formData[key]"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
                   :disabled="formMode === 'look'"
-                  @change="$emit('form-data-change', {key: key, value: value})"
+                  v-on="Object.assign({ change: (val)=>{$emit('form-data-change', {key: key, value: val})}}, handleFormTemplateMode(key).component)"
                 ></el-color-picker>
                 <render-custom-component
                   v-else-if="handleFormTemplateMode(key).component.name"

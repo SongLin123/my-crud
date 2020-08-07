@@ -4,7 +4,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: process.env.NODE_ENV === 'production' ? './src/index.js' : './test.js',
+  entry: process.env.NODE_ENV === 'production' ? './src/index.js' : './example/test.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',

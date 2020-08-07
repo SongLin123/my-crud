@@ -1,8 +1,8 @@
 <!--
  * @Date: 2020-06-09 14:07:21
  * @LastEditors: songlin
- * @LastEditTime: 2020-06-18 19:32:23
- * @FilePath: \d2-crud\app.vue
+ * @LastEditTime: 2020-08-07 15:04:21
+ * @FilePath: \my-crud\example\app.vue
 -->
 <template>
   <div id="app">
@@ -164,7 +164,11 @@ export default {
               options: [
                 { label: "测试1", value: 1 },
                 { label: "测试2", value: 2 }
-              ]
+              ],
+
+              change:(e)=>{
+                console.log(this.rowHandle)
+              }
             }
           },
           lastUpdatedTime: {

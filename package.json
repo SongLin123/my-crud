@@ -20,7 +20,7 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "start": "cross-env NODE_ENV=dev webpack-dev-server --open",
-    "up":"npm run build && npm publish"
+    "up": "npm run build && npm publish"
   },
   "dependencies": {
     "lodash.clonedeep": "^4.5.0",
