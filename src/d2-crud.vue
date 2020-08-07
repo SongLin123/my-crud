@@ -756,7 +756,7 @@
                   :component-name="handleFormTemplateMode(key).component.name"
                   :props="(handleFormTemplateMode(key).component.props && formMode === 'look') ? Object.assign({disabled:true},handleFormTemplateMode(key).component.props)  : ((handleFormTemplateMode(key).component.props && formMode !== 'look') ? handleFormTemplateMode(key).component.props:null)"
                   :ref="prefix(key)"
-                  @handlecustom="handle(key,$event)"
+                  @handlecustom="handle(key,event)"
                 ></render-custom-component>
                 <render-component
                   v-else-if="handleFormTemplateMode(key).component.render"
@@ -857,13 +857,8 @@ export default {
   components: {
     renderComponent,
     renderCustomComponent
-    // d2Column
+
   },
-  methods: {
-    prefix(name) {
-      return "com-" + name;
-    }
-  }
 };
 </script>
 
