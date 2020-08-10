@@ -1,13 +1,8 @@
-![](https://raw.githubusercontent.com/d2-projects/d2-crud/master/doc/image/banner.png)
-
-![npm](https://img.shields.io/npm/v/@d2-projects/d2-crud.svg)
-![npm](https://img.shields.io/npm/dt/@d2-projects/d2-crud.svg)
-![GitHub license](https://img.shields.io/github/license/d2-projects/d2-crud.svg)
-
+# my-crud
 
 ## 介绍
 
-[D2-Crud](https://github.com/d2-projects/d2-crud)基于D2-Crud修改的vue组件，添加部分功能。
+my-crud 是基于[D2-Crud](https://github.com/d2-projects/d2-crud)修改的vue 表格组件，包含简单的增删查改表单，比原版添加部分功能。
 
 ## 功能
 
