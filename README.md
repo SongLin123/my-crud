@@ -52,6 +52,31 @@ https://cdn.d2.pub/packages/@d2-projects/d2-crud@2.0.5/d2-crud.js
 
 ## 补丁修改
 
+### 2020/10/12
+- 增加自定义按钮，更多下拉选择
+        custom: [
+          {
+            text: '更多',
+            type: 'text',
+            // size: 'small',
+            sort: 8,
+            emit: 'custom-edit',
+            show: (index, row) => true,
+            more: [
+              {
+                text: '!!!!!',
+                emit: 'custom-pop',
+                show: (index, row) => true
+              }
+            ]
+          }
+        ]
+
+
+
+
+
+
 - 增加 addtemplate \ edittemplate 中事件和属性绑定至element组件功能
 - @ 前缀为组件事件
 - : 前缀为组件属性

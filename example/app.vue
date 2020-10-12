@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-06-09 14:07:21
  * @LastEditors  : BillySong
- * @LastEditTime : 2020-10-12 15:05:06
+ * @LastEditTime : 2020-10-12 15:07:55
  * @FilePath: \my-crud\example\app.vue
 -->
 <template>
@@ -36,221 +36,220 @@
   </div>
 </template>
 <script>
-import testCom from "./myComponent";
+import testCom from './myComponent'
 export default {
-  data() {
+  data () {
     return {
       data: [
         {
           roleName: 54565,
-          createdTime: 8484,
-        },
+          createdTime: 8484
+        }
       ],
       columns: [
         {
-          title: "角色名",
-          key: "roleName",
+          title: '角色名',
+          key: 'roleName'
         },
         {
-          title: "创建时间",
-          key: "createdTime",
-        },
+          title: '创建时间',
+          key: 'createdTime'
+        }
       ],
       formOptions: {
         // lookNoEleLabelWidth: 100
       },
       order: 3,
-      show: "",
+      show: '',
       rules: {
         roleName: [
           {
             required: true,
-            message: "请输入名字",
-            trigger: "blur",
-          },
+            message: '请输入名字',
+            trigger: 'blur'
+          }
         ],
 
         lastUpdatedTime: [
           {
             required: true,
-            message: "请输入时间",
-            trigger: "blur",
-          },
+            message: '请输入时间',
+            trigger: 'blur'
+          }
         ],
         remarksE: [
           {
             required: true,
-            message: "请输入备注2",
-            trigger: "blur",
-          },
-        ],
+            message: '请输入备注2',
+            trigger: 'blur'
+          }
+        ]
       },
       rowHandle: {
-        minWidth: "180px",
+        minWidth: '180px',
         look: {
-          text: "查看",
-          emit: "lookHandle",
-          sort: 5,
+          text: '查看',
+          emit: 'lookHandle',
+          sort: 5
         },
         lookNoEle: {
-          text: "纯文字查看",
-          emit: "lookHandle",
-          sort: 2,
+          text: '纯文字查看',
+          emit: 'lookHandle',
+          sort: 2
         },
         edit: {
-          text: "编辑",
-          emit: "editHandle",
-          type: "warning ",
-          sort: 1,
+          text: '编辑',
+          emit: 'editHandle',
+          type: 'warning ',
+          sort: 1
         },
         remove: {
-          icon: "el-icon-remove",
-          text: "删除",
-          align: "right",
-          confirm: true,
+          icon: 'el-icon-remove',
+          text: '删除',
+          align: 'right',
+          confirm: true
         },
         custom: [
           {
             text: '更多',
-
             type: 'text',
             // size: 'small',
             sort: 8,
             emit: 'custom-edit',
             show: (index, row) => true,
-            more:[
+            more: [
               {
                 text: '!!!!!',
-            emit: 'custom-pop',
-            show: (index, row) => true,
+                emit: 'custom-pop',
+                show: (index, row) => true
               }
             ]
-          },
+          }
         ]
-      },
-    };
+      }
+    }
   },
   computed: {
     addTemplate: {
-      get() {
+      get () {
         return {
           roleName: {
-            title: "角色名",
-            value: "",
-            class: "my_label",
+            title: '角色名',
+            value: '',
+            class: 'my_label',
             _sort: 1,
             component: {
-              placeholder: " 仅可输入英文大小写、数字",
-            },
+              placeholder: ' 仅可输入英文大小写、数字'
+            }
           },
           remarks: {
-            title: "备注",
-            value: "",
+            title: '备注',
+            value: '',
             _sort: 2,
-            _class: "gg",
+            _class: 'gg',
             component: {
-              placeholder: "",
-            },
+              placeholder: ''
+            }
           },
           remarksE: {
-            title: "备注2",
-            value: "",
+            title: '备注2',
+            value: '',
             _sort: 2,
             component: {
-              show: this.show === 2,
-            },
+              show: this.show === 2
+            }
           },
           mycom: {
             order: this.order,
-            title: "自定义选择框",
-            value: "",
+            title: '自定义选择框',
+            value: '',
             _sort: 3,
             component: {
               name: testCom,
-              formatter(val) {
-                return val === 1 ? "测试1" : "测试2";
+              formatter (val) {
+                return val === 1 ? '测试1' : '测试2'
               },
               props: {
                 options: [
-                  { label: "测试1", value: 1 },
-                  { label: "测试2", value: 2 },
-                ],
-              },
-            },
+                  { label: '测试1', value: 1 },
+                  { label: '测试2', value: 2 }
+                ]
+              }
+            }
           },
           mycom2: {
-            title: "自带选择框",
-            value: "",
+            title: '自带选择框',
+            value: '',
             _sort: 4,
             component: {
-              name: "el-select",
+              name: 'el-select',
               options: [
-                { label: "测试1", value: 1 },
-                { label: "测试2", value: 2 },
+                { label: '测试1', value: 1 },
+                { label: '测试2', value: 2 }
               ],
-              ":size": "mini",
-              "@change": (e) => {
-                console.log(this.rowHandle);
-              },
-            },
+              ':size': 'mini',
+              '@change': e => {
+                console.log(this.rowHandle)
+              }
+            }
           },
           lastUpdatedTime: {
-            title: "修改时间",
-            value: "",
+            title: '修改时间',
+            value: '',
             _sort: 5,
             component: {
-              show: this.show === 1,
-            },
-          },
-        };
+              show: this.show === 1
+            }
+          }
+        }
       },
-      set(newV) {
-        return newV;
-      },
-    },
+      set (newV) {
+        return newV
+      }
+    }
   },
 
   methods: {
-    pop(){
+    pop () {
       console.log('!!!!!!!!!!!!')
     },
-    handleEdit({ row }, done) {
-      console.log(row);
+    handleEdit ({ row }, done) {
+      console.log(row)
     },
-    handleAdd(data, done) {
-      console.log(data);
+    handleAdd (data, done) {
+      console.log(data)
     },
-    handle(data) {
-      this.$refs.d2Crud.getRef("comb").handle(data);
+    handle (data) {
+      this.$refs.d2Crud.getRef('comb').handle(data)
     },
     // 表单打开
-    handleDialogOpen({ mode, row }) {
-      if (mode === "add") {
-        this.show = "";
+    handleDialogOpen ({ mode, row }) {
+      if (mode === 'add') {
+        this.show = ''
       }
-      if (mode === "edit" || mode == "look") {
+      if (mode === 'edit' || mode == 'look') {
         if (row.mycom2 == 1) {
-          this.show = 1;
-          this.order = 2;
+          this.show = 1
+          this.order = 2
         } else {
-          this.show = 2;
+          this.show = 2
         }
       }
     },
-    handleDialogCancel(done) {
-      done();
+    handleDialogCancel (done) {
+      done()
     },
-    addDevice() {
+    addDevice () {
       this.$refs.d2Crud.showDialog({
-        mode: "add",
-      });
+        mode: 'add'
+      })
     },
-    handleFormDataChange({ key, value }) {
-      if (key == "mycom2") {
+    handleFormDataChange ({ key, value }) {
+      if (key == 'mycom2') {
         if (value == 1) {
-          this.show = 1;
-          this.order = 2;
-          console.log(this.addTemplate);
+          this.show = 1
+          this.order = 2
+          console.log(this.addTemplate)
           // this.addTemplate = Object.assign(
           //   {},
           //   JSON.parse(JSON.stringify(this.addTemplate))
@@ -259,18 +258,18 @@ export default {
           // let { remarksE, ...parmas } = this.addTemplate;
           // this.addTemplate = parmas;
         } else {
-          this.show = 2;
-          console.log(this.addTemplate);
+          this.show = 2
+          console.log(this.addTemplate)
 
           // this.addTemplate = { ...this.addTemplate, ...this.newAdd2 };
           // let { lastUpdatedTime, ...parmas } = this.addTemplate;
           // this.addTemplate = parmas;
         }
       }
-    },
+    }
   },
-  mounted() {
-    console.log(this.addTemplate);
-  },
-};
+  mounted () {
+    console.log(this.addTemplate)
+  }
+}
 </script>
