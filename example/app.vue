@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-06-09 14:07:21
- * @LastEditors: songlin
- * @LastEditTime: 2020-08-07 15:43:58
+ * @LastEditors  : BillySong
+ * @LastEditTime : 2020-10-12 15:05:06
  * @FilePath: \my-crud\example\app.vue
 -->
 <template>
@@ -25,6 +25,7 @@
       :add-rules="rules"
       :edit-rules="rules"
       @componentEvent:coma="handle"
+      @custom-pop="pop"
     >
       <template #header>
         <el-button type="primary" style="margin-bottom: 5px;" @click="addDevice"
@@ -108,6 +109,24 @@ export default {
           align: "right",
           confirm: true,
         },
+        custom: [
+          {
+            text: '更多',
+
+            type: 'text',
+            // size: 'small',
+            sort: 8,
+            emit: 'custom-edit',
+            show: (index, row) => true,
+            more:[
+              {
+                text: '!!!!!',
+            emit: 'custom-pop',
+            show: (index, row) => true,
+              }
+            ]
+          },
+        ]
       },
     };
   },
@@ -192,6 +211,9 @@ export default {
   },
 
   methods: {
+    pop(){
+      console.log('!!!!!!!!!!!!')
+    },
     handleEdit({ row }, done) {
       console.log(row);
     },
