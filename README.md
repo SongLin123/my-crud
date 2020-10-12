@@ -54,6 +54,7 @@ https://cdn.d2.pub/packages/@d2-projects/d2-crud@2.0.5/d2-crud.js
 
 ### 2020/10/12
 - 增加自定义按钮，更多下拉选择
+``` js
         custom: [
           {
             text: '更多',
@@ -71,6 +72,7 @@ https://cdn.d2.pub/packages/@d2-projects/d2-crud@2.0.5/d2-crud.js
             ]
           }
         ]
+```
 
 
 
