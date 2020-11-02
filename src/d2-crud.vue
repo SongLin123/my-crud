@@ -1350,7 +1350,7 @@
                   </div>
 
                   <el-button
-                    slot="reference"
+                    v-popover:popover
                     class="btn"
                     v-bind="
                       $d2CrudSize
