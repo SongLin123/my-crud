@@ -1303,7 +1303,7 @@
                 >
                 <!-- 更多的下拉按钮 -->
                 <el-popover
-
+                @click="e => e.stopPropagation()"
                   placement="bottom"
                   trigger="click"
                   :key="item.text"
@@ -1350,14 +1350,14 @@
                   </div>
 
                   <el-button
-                    v-popover:popover
+                    slot="reference"
                     class="btn"
                     v-bind="
                       $d2CrudSize
                         ? Object.assign({ size: $d2CrudSize }, item)
                         : item
                     "
-                    @click="e => e.stopPropagation()"
+
                     >{{ item.text }}<i class="el-icon-arrow-down"></i
                   ></el-button>
                 </el-popover>
