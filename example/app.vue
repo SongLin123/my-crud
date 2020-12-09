@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-06-09 14:07:21
  * @LastEditors  : BillySong
- * @LastEditTime : 2020-11-02 17:56:14
+ * @LastEditTime : 2020-12-09 14:31:57
  * @FilePath: \my-crud\example\app.vue
 -->
 <template>
@@ -47,8 +47,9 @@ export default {
         },
         {
           roleName: 54565,
-          createdTime: 8484
-        },
+          createdTime:
+            'ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss'
+        }
       ],
       columns: [
         {
@@ -57,7 +58,8 @@ export default {
         },
         {
           title: '创建时间',
-          key: 'createdTime'
+          key: 'createdTime',
+          showOverflowTooltip: true
         }
       ],
       formOptions: {
@@ -216,6 +218,10 @@ export default {
   methods: {
     pop () {
       console.log('!!!!!!!!!!!!')
+      setTimeout(() => {
+        // 模拟表单延时更新
+        this.data = JSON.parse(JSON.stringify(this.data))
+      }, 2000)
     },
     handleEdit ({ row }, done) {
       console.log(row)
