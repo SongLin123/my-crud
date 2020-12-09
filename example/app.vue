@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-06-09 14:07:21
  * @LastEditors  : BillySong
- * @LastEditTime : 2020-12-09 14:31:57
+ * @LastEditTime : 2020-12-09 16:08:01
  * @FilePath: \my-crud\example\app.vue
 -->
 <template>
@@ -221,7 +221,7 @@ export default {
       setTimeout(() => {
         // 模拟表单延时更新
         this.data = JSON.parse(JSON.stringify(this.data))
-      }, 2000)
+      }, 200)
     },
     handleEdit ({ row }, done) {
       console.log(row)

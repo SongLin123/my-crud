@@ -28,6 +28,15 @@ export default {
   watch: {
     data () {
       this.handleDataChange()
+    },
+    d2CrudData: {
+      deep: true,
+      handler () {
+        this.$refs.crudPopover &&
+          this.$refs.crudPopover.forEach(element => {
+            element.doClose()
+          })
+      }
     }
   },
   mounted () {
@@ -49,6 +58,9 @@ export default {
       if (this.d2CrudData !== this.data) {
         this.d2CrudData = _clonedeep(this.data)
       }
+    },
+    clickPop (e, index) {
+      e.stopPropagation()
     },
     /**
      * @description 排序时数据变化

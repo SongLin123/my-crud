@@ -1303,17 +1303,11 @@
                 >
                 <!-- 更多的下拉按钮 -->
                 <el-popover
-                  @click="
-                    e => {
-                      e.stopPropagation()
-                      scope.row._showPopover = !scope.row._showPopover
-                    }
-                  "
+                  ref="crudPopover"
                   placement="bottom"
                   trigger="click"
                   :key="item.text"
                   :style="{ order: item.sort }"
-                  v-model="scope.row._showPopover"
                   v-if="
                     item.more &&
                       !item.circle &&
@@ -1361,6 +1355,11 @@
                       $d2CrudSize
                         ? Object.assign({ size: $d2CrudSize }, item)
                         : item
+                    "
+                    @click="
+                      e => {
+                        clickPop(e, scope.$index)
+                      }
                     "
                     >{{ item.text }}<i class="el-icon-arrow-down"></i
                   ></el-button>
