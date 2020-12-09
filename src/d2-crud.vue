@@ -1307,7 +1307,6 @@
                     e => {
                       e.stopPropagation()
                       scope.row._showPopover = !scope.row._showPopover
-                      $forceUpdate()
                     }
                   "
                   placement="bottom"
