@@ -1324,6 +1324,11 @@
                       scope.row
                     )
                   "
+                  @click="
+                    e => {
+                      e.stopPropagation()
+                    }
+                  "
                 >
                   <div class="hover">
                     <div
@@ -1355,11 +1360,6 @@
                       $d2CrudSize
                         ? Object.assign({ size: $d2CrudSize }, item)
                         : item
-                    "
-                    @click="
-                      e => {
-                        clickPop(e, scope.$index)
-                      }
                     "
                     >{{ item.text }}<i class="el-icon-arrow-down"></i
                   ></el-button>

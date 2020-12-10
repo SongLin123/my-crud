@@ -59,9 +59,6 @@ export default {
         this.d2CrudData = _clonedeep(this.data)
       }
     },
-    clickPop (e, index) {
-      e.stopPropagation()
-    },
     /**
      * @description 排序时数据变化
      */
